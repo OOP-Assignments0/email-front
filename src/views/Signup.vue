@@ -10,7 +10,7 @@
           <label>Email Address</label>
         </div>
         <div class="field">
-          <input type="text" required v-model="username" />
+          <input type="text" required v-model="username"/>
           <label>User Name</label>
         </div>
         <div class="field">
@@ -18,7 +18,7 @@
           <label>Password</label>
         </div>
         <div class="field">
-          <input type="submit" value="Sign Up" @click="submit" />
+          <input type="submit" value="Sign Up" @click.stop.prevent="submit" />
         </div>
         <router-link to="/">Sign In Instead</router-link>
       </form>
