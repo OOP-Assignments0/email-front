@@ -4,7 +4,7 @@
       <div class="title">
         Welcome
       </div>
-      <form action="/view">
+      <form action="#" @submit="submit">
         <div class="field">
           <input type="text" required v-model="email" />
           <label>Email Address</label>
@@ -34,7 +34,7 @@ export default {
   methods: {
     submit() {
       //if you want to send any data into server before redirection then you can do it here
-      //this.$router.push("/view?" + this.email);
+      this.$router.push("/view?" + this.email);
     }
   }
 };
