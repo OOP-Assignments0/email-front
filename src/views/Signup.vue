@@ -6,25 +6,42 @@
       </div>
       <form action="#">
         <div class="field">
-          <input type="text" required />
+          <input type="text" required v-model="email" />
           <label>Email Address</label>
         </div>
         <div class="field">
-          <input type="text" required />
+          <input type="text" required v-model="username" />
           <label>User Name</label>
         </div>
         <div class="field">
-          <input type="password" required />
+          <input type="password" required v-model="password" />
           <label>Password</label>
         </div>
         <div class="field">
-          <input type="submit" value="Sign Up" />
+          <input type="submit" value="Sign Up" @click="submit" />
         </div>
-        <router-link to="/about">Sign In Instead</router-link>
+        <router-link to="/">Sign In Instead</router-link>
       </form>
     </div>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      username: null,
+      email: null,
+      password: null
+    };
+  },
+  methods: {
+    submit() {
+      //if you want to send any data into server before redirection then you can do it here
+      this.$router.push("/view?" + this.email);
+    }
+  }
+};
+</script>
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
 * {
