@@ -568,7 +568,7 @@ export default {
         SortType: document.getElementById("Sort").value
       };
       fetch("http://localhost:8085//Sort", {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
@@ -605,7 +605,7 @@ export default {
         Word: document.getElementById("filter").value
       };
       fetch("http://localhost:8085//Filter", {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
