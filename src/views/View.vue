@@ -160,7 +160,10 @@
                     <b-button size="sm" @click="row.toggleDetails">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
-                    <button class="delete" @click="deletee((currentPage-1)*10+ row.index);">
+                    <button
+                      class="delete"
+                      @click="deletee((currentPage - 1) * 10 + row.index)"
+                    >
                       <i class="fa fa-trash"></i>
                     </button>
                   </template>
@@ -190,7 +193,10 @@
                     <b-button size="sm" @click="row.toggleDetails">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
-                    <button class="delete" @click="deletee((currentPage-1)*10+ row.index)">
+                    <button
+                      class="delete"
+                      @click="deletee((currentPage - 1) * 10 + row.index)"
+                    >
                       <i class="fa fa-trash"></i>
                     </button>
                   </template>
@@ -223,7 +229,10 @@
                     <b-button size="sm" @click="row.toggleDetails">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
-                    <button class="delete" @click="deletee((currentPage-1)*10+ row.index)">
+                    <button
+                      class="delete"
+                      @click="deletee((currentPage - 1) * 10 + row.index)"
+                    >
                       <i class="fa fa-trash"></i>
                     </button>
                   </template>
@@ -250,13 +259,19 @@
                   small
                 >
                   <template #cell(actions)="row">
-                    <button class="delete restore" @click="restore((currentPage-1)*10+ row.index)" >
+                    <button
+                      class="delete restore"
+                      @click="restore((currentPage - 1) * 10 + row.index)"
+                    >
                       <i class="fa fa-undo"></i>
                     </button>
                     <b-button size="sm" @click="row.toggleDetails">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
-                    <button class="delete" @click="deletee((currentPage-1)*10+ row.index)">
+                    <button
+                      class="delete"
+                      @click="deletee((currentPage - 1) * 10 + row.index)"
+                    >
                       <i class="fa fa-trash"></i>
                     </button>
                   </template>
@@ -603,9 +618,9 @@ export default {
       const email = urlParams.get("email");
       console.log(email);
       let a = [];
-      a.push({mail:this.items[v]});
-      a.push({email:email + "@fray.com"});
-      a.push({targetFolder:this.targetFolder});
+      a.push({ mail: this.items[v] });
+      a.push({ email: email + "@fray.com" });
+      a.push({ targetFolder: this.targetFolder });
       //this.on = false;
       fetch("http://localhost:8085//Delete", {
         method: "POST",
@@ -631,8 +646,8 @@ export default {
       const email = urlParams.get("email");
       console.log(email);
       let a = [];
-      a.push({mail:this.items[v]});
-      a.push({email:email + "@fray.com"});
+      a.push({ mail: this.items[v] });
+      a.push({ email: email + "@fray.com" });
       //this.on = false;
       fetch("http://localhost:8085//Restore", {
         method: "POST",
