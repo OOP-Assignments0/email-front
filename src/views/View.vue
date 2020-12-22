@@ -41,7 +41,7 @@
           variant="primary"
           size="md"
           class="filter"
-          @click="handle()"
+          @click="Filter()"
           >Filter</b-button
         >
       </b-col>
@@ -417,82 +417,7 @@ export default {
         { value: 4, text: "4" }
       ],
       items: [
-        {
-          from: "ahmed@fray.com",
-          to: "ali@fray.com",
-          subject: "football",
-          date: "24/2/2010",
-          body: "hi ahmed i love football"
-        },
-        {
-          from: "saad@fray.com",
-          to: "ali@fray.com",
-          subject: "volleyball",
-          date: "24/4/2010"
-        },
-        {
-          from: "ttt@fray.com",
-          to: "ali@fray.com",
-          subject: "tennis",
-          date: "12/2/2010"
-        },
-        {
-          from: "ahmed@fray.com",
-          to: "ali@fray.com",
-          subject: "football",
-          date: "24/2/2010",
-          body: "hi ahmed i love football"
-        },
-        {
-          from: "saad@fray.com",
-          to: "ali@fray.com",
-          subject: "volleyball",
-          date: "24/4/2010"
-        },
-        {
-          from: "ttt@fray.com",
-          to: "ali@fray.com",
-          subject: "tennis",
-          date: "12/2/2010"
-        },
-        {
-          from: "ahmed@fray.com",
-          to: "ali@fray.com",
-          subject: "football",
-          date: "24/2/2010",
-          body: "hi ahmed i love football"
-        },
-        {
-          from: "saad@fray.com",
-          to: "ali@fray.com",
-          subject: "volleyball",
-          date: "24/4/2010"
-        },
-        {
-          from: "ttt@fray.com",
-          to: "ali@fray.com",
-          subject: "tennis",
-          date: "12/2/2010"
-        },
-        {
-          from: "ahmed@fray.com",
-          to: "ali@fray.com",
-          subject: "football",
-          date: "24/2/2010",
-          body: "hi ahmed i love football"
-        },
-        {
-          from: "saad@fray.com",
-          to: "ali@fray.com",
-          subject: "volleyball",
-          date: "24/4/2010"
-        },
-        {
-          from: "ttt@fray.com",
-          to: "ali@fray.com",
-          subject: "tennis",
-          date: "12/2/2010"
-        }
+        
       ],
       fields: [
         { key: "from", label: "Sender" },
