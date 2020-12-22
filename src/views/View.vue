@@ -10,6 +10,7 @@
           v-model="selected"
           :options="options"
           id="Sort"
+          @change="sort()"
         ></b-form-select>
       </b-col>
     </b-row>
@@ -51,7 +52,7 @@
         <div class=" ">Search:</div>
       </b-col>
       <b-col lg="7" class="my-1">
-        <input type="text" id="Search" class="filter" />
+        <input type="text" id="Search" class="filter" @keydown="search()" />
       </b-col>
       <b-col lg="3" class="my-1">
         <b-form-select v-model="selected2" :options="options2"></b-form-select>
@@ -126,7 +127,7 @@
                 size="lg"
                 variant="primary"
                 class="filter"
-                @click="send()"
+                @click="sendOrDraft('Send')"
               >
                 Send
               </b-button>
@@ -141,7 +142,7 @@
         <div>
           <b-card no-body>
             <b-tabs pills card vertical>
-              <b-tab title="Inbox" active >
+              <b-tab title="Inbox" active @click="setTargetFolder('Inbox')">
                 <b-table
                   :items="items"
                   :fields="fields"
@@ -185,55 +186,7 @@
                   <pre>{{ infoModal.content }}</pre>
                 </b-modal>
               </b-tab>
-              <b-tab title="Send">
-                <b-table
-                  :items="items"
-                  :fields="fields"
-                  :current-page="currentPage"
-                  :per-page="perPage"
-                  stacked="md"
-                  show-empty
-                  small
-                >
-                  <template #cell(name)="row">
-                    {{ row.value.first }} {{ row.value.last }}
-                  </template>
-
-                  <template #cell(actions)="row">
-                    <b-button
-                      size="sm"
-                      @click="info(row.item, row.index, $event.target)"
-                      class="mr-1"
-                    >
-                      Info modal
-                    </b-button>
-                    <b-button size="sm" @click="row.toggleDetails">
-                      {{ row.detailsShowing ? "Hide" : "Show" }} Details
-                    </b-button>
-                  </template>
-
-                  <template #row-details="row">
-                    <b-card>
-                      <ul>
-                        <li v-for="(value, key) in row.item" :key="key">
-                          {{ key }}: {{ value }}
-                        </li>
-                      </ul>
-                    </b-card>
-                  </template>
-                </b-table>
-
-                <!-- Info modal -->
-                <b-modal
-                  :id="infoModal.id"
-                  :title="infoModal.title"
-                  ok-only
-                  @hide="resetInfoModal"
-                >
-                  <pre>{{ infoModal.content }}</pre>
-                </b-modal>
-              </b-tab>
-              <b-tab title="Draft">
+              <b-tab title="Send" @click="setTargetFolder('Send')">
                 <b-table
                   :items="items"
                   :fields="fields"
@@ -281,7 +234,7 @@
                   <pre>{{ infoModal.content }}</pre>
                 </b-modal>
               </b-tab>
-              <b-tab title="Trash">
+              <b-tab title="Draft" @click="setTargetFolder('Draft')">
                 <b-table
                   :items="items"
                   :fields="fields"
@@ -329,7 +282,55 @@
                   <pre>{{ infoModal.content }}</pre>
                 </b-modal>
               </b-tab>
-              <b-tab title="Contacts">
+              <b-tab title="Trash" @click="setTargetFolder('Trash')">
+                <b-table
+                  :items="items"
+                  :fields="fields"
+                  :current-page="currentPage"
+                  :per-page="perPage"
+                  stacked="md"
+                  show-empty
+                  small
+                >
+                  <template #cell(name)="row">
+                    {{ row.value.first }} {{ row.value.last }}
+                  </template>
+
+                  <template #cell(actions)="row">
+                    <b-button
+                      size="sm"
+                      @click="info(row.item, row.index, $event.target)"
+                      class="mr-1"
+                    >
+                      Info modal
+                    </b-button>
+                    <b-button size="sm" @click="row.toggleDetails">
+                      {{ row.detailsShowing ? "Hide" : "Show" }} Details
+                    </b-button>
+                  </template>
+
+                  <template #row-details="row">
+                    <b-card>
+                      <ul>
+                        <li v-for="(value, key) in row.item" :key="key">
+                          {{ key }}: {{ value }}
+                        </li>
+                      </ul>
+                    </b-card>
+                  </template>
+                </b-table>
+
+                <!-- Info modal -->
+                <b-modal
+                  :id="infoModal.id"
+                  :title="infoModal.title"
+                  ok-only
+                  @hide="resetInfoModal"
+                >
+                  <pre>{{ infoModal.content }}</pre>
+                </b-modal>
+              </b-tab>
+              <b-tab title="Contacts" @click="setTargetFolder('Contacts')">
                 <b-table
                   :items="items"
                   :fields="fields2"
@@ -459,14 +460,16 @@ export default {
     // Set the initial number of items
     this.totalRows = this.items.length;
     this.targetFolder = "Inbox";
-    this.selected= "A";
+    this.selected = "A";
     this.getEmails();
-    
-    
   },
   methods: {
     toggle_on() {
       this.on = !this.on;
+      if (this.on == false) {
+        this.sendOrDraft("Draft");
+        alert("Message Saved to Draft Folder");
+      }
     },
     info(item, index, button) {
       this.infoModal.title = `Row index: ${index}`;
@@ -482,11 +485,16 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
-    getURl() {
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const email = urlParams.get("email");
-      console.log(email);
+    setTargetFolder(v) {
+      console.log(v);
+      this.targetFolder = v;
+      if (v == "Inbox" || v == "Draft" || v == "Send" || v == "Trash") {
+        console.log(this.targetFolder);
+        this.getEmails();
+      } else {
+        console.log(v);
+        //here we load contacts
+      }
     },
     getEmails() {
       const queryString = window.location.search;
@@ -510,12 +518,11 @@ export default {
           this.handle(data);
         });
     },
-    send() {
+    sendOrDraft(v) {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
       console.log(email);
-  
       let a = {
         from: email + "@fray.com",
         to: document.getElementById("To").value,
@@ -525,7 +532,12 @@ export default {
         name: document.getElementById("Subject").value,
         date: "14/2/2000"
       };
-      fetch("http://localhost:8085//Send", {
+      document.getElementById("To").value = "";
+      document.getElementById("priority").value = 1;
+      document.getElementById("textarea").value = "";
+      document.getElementById("Subject").value = "";
+      this.on = false;
+      fetch("http://localhost:8085//" + v, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -544,10 +556,13 @@ export default {
         });
     },
     sort() {
+      console.log("i'm in sort");
+      this.selected = "A";
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
       console.log(email);
+      console.log(document.getElementById("Sort").value + "\ni'm in sort");
       let a = {
         email: email + "@fray.com",
         SortType: document.getElementById("Sort").value
@@ -579,6 +594,9 @@ export default {
       } else {
         type = "Subject";
       }
+      if (document.getElementById("filter").value == "") {
+        alert("Enter the Word you want to filter at Filter text box");
+      }
       console.log(email);
       let a = {
         filterType: type,
@@ -609,7 +627,10 @@ export default {
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
       console.log(email);
+      console.log("i'm in search");
       let a = {
+        //to get the word you want to search about use the code in bellow comment
+        //document.getElementById("Search");
         //write json object for search here
       };
       fetch("http://localhost:8085//Search", {
@@ -630,24 +651,10 @@ export default {
         });
     },
     handle(a) {
-      /*let arr = [];
-      //var obj = JSON.parse(a);
-      console.log(this.items);
-      var b = JSON.stringify(this.items);
-      console.log(b);
-      var obj = JSON.parse(b);
-
-      console.log(obj);
-      for (let i = 0 ; i< obj.length ; i++){
-        arr.push(obj[i]);
-        console.log(arr);
-      }
-      this.items=arr;*/
       let arr = [];
       var obj = JSON.parse(a);
-      for (let i = 0; i < obj.length; i++) {
+      for (let i = obj.length - 1; i >= 0; i--) {
         arr.push(obj[i]);
-        //console.log(arr);
       }
       this.items = arr;
     }
