@@ -590,9 +590,10 @@ export default {
       console.log(email);
       console.log("i'm in search");
       let a = {
-        //to get the word you want to search about use the code in bellow comment
-        //document.getElementById("Search");
-        //write json object for search here
+        str : document.getElementById("Search").value,
+        region : this.targetFolder,
+        emailPart: "all",
+        Useremail: email + "@fray.com"
       };
       fetch("http://localhost:8085//Search", {
         method: "GET",
