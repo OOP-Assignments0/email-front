@@ -384,7 +384,7 @@
     </b-row>
   </b-container>
 </template>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+
 <script>
 export default {
   data() {
@@ -510,6 +510,7 @@ export default {
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
       console.log(email);
+  
       let a = {
         from: email + "@fray.com",
         to: document.getElementById("To").value,
@@ -517,7 +518,7 @@ export default {
         body: document.getElementById("textarea").value,
         subject: document.getElementById("Subject").value,
         name: document.getElementById("Subject").value,
-        date: moment().format("DD:MM:YYYY hh:mm:ss")
+        date: "14/2/2000"
       };
       fetch("http://localhost:8085//Send", {
         method: "POST",
@@ -529,11 +530,12 @@ export default {
         .then(response => response.text())
         .then(data => {
           console.log(data);
-          if (data == "true") {
+          alert(data);
+         /* if (data == "true") {
             this.getEmails();
           } else {
             alert(data);
-          }
+          }*/
         });
     },
     sort() {
