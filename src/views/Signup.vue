@@ -4,7 +4,7 @@
       <div class="title">
         Welcome
       </div>
-      <form action="#">
+      <form @submit.stop.prevent="checkemail">
         <div class="field">
           <input type="text" required v-model="email" />
           <label>Email Address</label>
@@ -18,7 +18,7 @@
           <label>Password</label>
         </div>
         <div class="field">
-          <input type="submit" value="Sign Up" @click.stop.prevent="submit" />
+          <input type="submit" value="Sign Up" />
         </div>
         <router-link to="/">Sign In Instead</router-link>
       </form>
@@ -36,8 +36,40 @@ export default {
   },
   methods: {
     submit() {
-      //if you want to send any data into server before redirection then you can do it here
-      this.$router.push("/view?" + this.email);
+      var res = this.email.split("@");
+      this.$router.push("/view?email=" + res[0]);
+    },
+    signUp() {
+      let a = {
+        email: this.email,
+        password: this.password,
+        name: this.username
+      };
+      fetch("http://localhost:8085//SignUp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(a)
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          //alert(data);
+          if (data == "true") {
+            this.submit();
+          } else {
+            alert(data);
+          }
+        });
+    },
+    checkemail() {
+      var res = this.email.split("@");
+      if (res[1] != "fray.com") {
+        alert("Enter the email as the form:\nexample@fray.com");
+      } else {
+        this.signUp();
+      }
     }
   }
 };

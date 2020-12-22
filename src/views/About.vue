@@ -4,7 +4,7 @@
       <div class="title">
         Welcome
       </div>
-      <form @submit="submit">
+      <form @submit.stop.prevent="checkemail">
         <div class="field">
           <input type="text" required v-model="email" />
           <label>Email Address</label>
@@ -33,8 +33,38 @@ export default {
   },
   methods: {
     submit() {
-      //if you want to send any data into server before redirection then you can do it here
-      this.$router.push("/view?" + this.email);
+      var res = this.email.split("@");
+      this.$router.push("/view?email=" + res[0]);
+    },
+    signIn() {
+      let a = {
+        email: this.email,
+        password: this.password
+      };
+      fetch("http://localhost:8085//SignIn", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(a)
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          if (data == "true") {
+            this.submit();
+          } else {
+            alert(data);
+          }
+        });
+    },
+    checkemail() {
+      var res = this.email.split("@");
+      if (res[1] != "fray.com") {
+        alert("Enter the email as the form:\nexample@fray.com");
+      } else {
+        this.signIn();
+      }
     }
   }
 };

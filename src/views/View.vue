@@ -6,7 +6,11 @@
         <div class=" ">Sort:</div>
       </b-col>
       <b-col lg="10" class="my-1">
-        <b-form-select v-model="selected" :options="options"></b-form-select>
+        <b-form-select
+          v-model="selected"
+          :options="options"
+          id="Sort"
+        ></b-form-select>
       </b-col>
     </b-row>
     <b-row>
@@ -32,7 +36,12 @@
         <input type="text" id="filter" class="filter" />
       </b-col>
       <b-col lg="2" class="my-1">
-        <b-button type="submit" variant="primary" size="md" class="filter"
+        <b-button
+          type="submit"
+          variant="primary"
+          size="md"
+          class="filter"
+          @click="Filter()"
           >Filter</b-button
         >
       </b-col>
@@ -71,7 +80,7 @@
               <div>TO:</div>
             </b-col>
             <b-col lg="10" class="my-1">
-              <input type="text" class="filter" />
+              <input type="text" class="filter" id="To" />
             </b-col>
           </b-row>
           <b-row>
@@ -79,7 +88,7 @@
               <div>Subject:</div>
             </b-col>
             <b-col lg="10" class="my-1">
-              <input type="text" class="filter" />
+              <input type="text" class="filter" id="Subject" />
             </b-col>
           </b-row>
           <b-row>
@@ -88,6 +97,7 @@
             </b-col>
             <b-col lg="10" class="my-1">
               <b-form-select
+                id="priority"
                 v-model="selected3"
                 :options="options3"
               ></b-form-select>
@@ -112,7 +122,12 @@
               <div></div>
             </b-col>
             <b-col sm="2" md="2" class="my-1">
-              <b-button size="lg" variant="primary" class="filter">
+              <b-button
+                size="lg"
+                variant="primary"
+                class="filter"
+                @click="send()"
+              >
                 Send
               </b-button>
             </b-col>
@@ -374,7 +389,8 @@
 export default {
   data() {
     return {
-      selected: "",
+      targetFolder: "Inbox",
+      selected: "A",
       options: [
         { value: "sender", text: "Sender" },
         { value: "receiver", text: "Receiver" },
@@ -519,6 +535,7 @@ export default {
   mounted() {
     // Set the initial number of items
     this.totalRows = this.items.length;
+    this.getEmails();
   },
   methods: {
     toggle_on() {
@@ -537,6 +554,159 @@ export default {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
+    },
+    getURl() {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const email = urlParams.get("email");
+      console.log(email);
+    },
+    getEmails() {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const email = urlParams.get("email");
+      let a = {
+        email: email + "@fray.com",
+        taregtFolder: this.targetFolder
+      };
+      fetch("http://localhost:8085//GetEmails", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(a)
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          //put data in table
+        });
+    },
+    send() {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const email = urlParams.get("email");
+      console.log(email);
+      let a = {
+        from: email + "@fray.com",
+        to: document.getElementById("To").value,
+        priority: document.getElementById("priority").value,
+        body: document.getElementById("textarea").value,
+        subject: document.getElementById("Subject").value,
+        name: document.getElementById("Subject").value,
+        date: "14/2/2000"
+      };
+      fetch("http://localhost:8085//Send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(a)
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          if (data == "true") {
+            this.getEmails();
+          } else {
+            alert(data);
+          }
+        });
+    },
+    sort() {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const email = urlParams.get("email");
+      console.log(email);
+      let a = {
+        email: email + "@fray.com",
+        SortType: document.getElementById("Sort").value
+      };
+      fetch("http://localhost:8085//Sort", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(a)
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          /*if (data == "true") {
+            this.getEmails();
+          } else {
+            alert(data);
+          }*/
+        });
+    },
+    Filter() {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const email = urlParams.get("email");
+      if (this.selected == "A") {
+        var type = "Sender";
+      } else {
+        type = "Subject";
+      }
+      console.log(email);
+      let a = {
+        filterType: type,
+        email: email + "@fray.com",
+        targetFolder: this.targetFolder,
+        Word: document.getElementById("filter").value
+      };
+      fetch("http://localhost:8085//Filter", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(a)
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          /*if (data == "true") {
+            this.getEmails();
+          } else {
+            alert(data);
+          }*/
+        });
+    },
+    search() {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const email = urlParams.get("email");
+      if (this.selected == "A") {
+        var type = "Sender";
+      } else {
+        type = "Subject";
+      }
+      console.log(email);
+      let a = {
+        //write json object for search here
+      };
+      fetch("http://localhost:8085//Search", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(a)
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          /*if (data == "true") {
+            this.getEmails();
+          } else {
+            alert(data);
+          }*/
+        });
+    },
+    handle(a){
+
+    },
+    show(){
+
     }
   }
 };
