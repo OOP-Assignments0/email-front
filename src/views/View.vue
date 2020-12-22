@@ -141,7 +141,7 @@
         <div>
           <b-card no-body>
             <b-tabs pills card vertical>
-              <b-tab title="Inbox" active>
+              <b-tab title="Inbox" active >
                 <b-table
                   :items="items"
                   :fields="fields"
@@ -458,7 +458,11 @@ export default {
   mounted() {
     // Set the initial number of items
     this.totalRows = this.items.length;
+    this.targetFolder = "Inbox";
+    this.selected= "A";
     this.getEmails();
+    
+    
   },
   methods: {
     toggle_on() {
@@ -488,12 +492,13 @@ export default {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
+      console.log("get Emails");
       let a = {
         email: email + "@fray.com",
-        taregtFolder: this.targetFolder
+        targetFolder: this.targetFolder
       };
       fetch("http://localhost:8085//GetEmails", {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
@@ -530,12 +535,12 @@ export default {
         .then(response => response.text())
         .then(data => {
           console.log(data);
-          alert(data);
-         /* if (data == "true") {
+          //alert(data);
+          if (data == "true") {
             this.getEmails();
           } else {
             alert(data);
-          }*/
+          }
         });
     },
     sort() {
