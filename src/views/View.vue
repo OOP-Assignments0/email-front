@@ -1,5 +1,9 @@
 <template>
   <b-container fluid class="ahmed">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <!-- User Interface controls -->
     <b-row>
       <b-col lg="2" class="my-1">
@@ -153,16 +157,12 @@
                   small
                 >
                   <template #cell(actions)="row">
-                    <b-button
-                      size="sm"
-                      @click="info(row.item, row.index, $event.target)"
-                      class="mr-1"
-                    >
-                      Info modal
-                    </b-button>
                     <b-button size="sm" @click="row.toggleDetails">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
+                    <button class="delete">
+                      <i class="fa fa-trash"></i>
+                    </button>
                   </template>
 
                   <template #row-details="row">
@@ -175,16 +175,6 @@
                     </b-card>
                   </template>
                 </b-table>
-
-                <!-- Info modal -->
-                <b-modal
-                  :id="infoModal.id"
-                  :title="infoModal.title"
-                  ok-only
-                  @hide="resetInfoModal"
-                >
-                  <pre>{{ infoModal.content }}</pre>
-                </b-modal>
               </b-tab>
               <b-tab title="Send" @click="setTargetFolder('Send')">
                 <b-table
@@ -196,21 +186,13 @@
                   show-empty
                   small
                 >
-                  <template #cell(name)="row">
-                    {{ row.value.first }} {{ row.value.last }}
-                  </template>
-
                   <template #cell(actions)="row">
-                    <b-button
-                      size="sm"
-                      @click="info(row.item, row.index, $event.target)"
-                      class="mr-1"
-                    >
-                      Info modal
-                    </b-button>
                     <b-button size="sm" @click="row.toggleDetails">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
+                    <button class="delete">
+                      <i class="fa fa-trash"></i>
+                    </button>
                   </template>
 
                   <template #row-details="row">
@@ -223,16 +205,6 @@
                     </b-card>
                   </template>
                 </b-table>
-
-                <!-- Info modal -->
-                <b-modal
-                  :id="infoModal.id"
-                  :title="infoModal.title"
-                  ok-only
-                  @hide="resetInfoModal"
-                >
-                  <pre>{{ infoModal.content }}</pre>
-                </b-modal>
               </b-tab>
               <b-tab title="Draft" @click="setTargetFolder('Draft')">
                 <b-table
@@ -244,21 +216,16 @@
                   show-empty
                   small
                 >
-                  <template #cell(name)="row">
-                    {{ row.value.first }} {{ row.value.last }}
-                  </template>
-
                   <template #cell(actions)="row">
-                    <b-button
-                      size="sm"
-                      @click="info(row.item, row.index, $event.target)"
-                      class="mr-1"
-                    >
-                      Info modal
-                    </b-button>
+                    <button class="delete rewrite">
+                      <i class="fa fa-edit"></i>
+                    </button>
                     <b-button size="sm" @click="row.toggleDetails">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
+                    <button class="delete">
+                      <i class="fa fa-trash"></i>
+                    </button>
                   </template>
 
                   <template #row-details="row">
@@ -271,16 +238,6 @@
                     </b-card>
                   </template>
                 </b-table>
-
-                <!-- Info modal -->
-                <b-modal
-                  :id="infoModal.id"
-                  :title="infoModal.title"
-                  ok-only
-                  @hide="resetInfoModal"
-                >
-                  <pre>{{ infoModal.content }}</pre>
-                </b-modal>
               </b-tab>
               <b-tab title="Trash" @click="setTargetFolder('Trash')">
                 <b-table
@@ -292,21 +249,16 @@
                   show-empty
                   small
                 >
-                  <template #cell(name)="row">
-                    {{ row.value.first }} {{ row.value.last }}
-                  </template>
-
                   <template #cell(actions)="row">
-                    <b-button
-                      size="sm"
-                      @click="info(row.item, row.index, $event.target)"
-                      class="mr-1"
-                    >
-                      Info modal
-                    </b-button>
+                    <button class="delete restore">
+                      <i class="fa fa-undo"></i>
+                    </button>
                     <b-button size="sm" @click="row.toggleDetails">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
+                    <button class="delete">
+                      <i class="fa fa-trash"></i>
+                    </button>
                   </template>
 
                   <template #row-details="row">
@@ -319,16 +271,6 @@
                     </b-card>
                   </template>
                 </b-table>
-
-                <!-- Info modal -->
-                <b-modal
-                  :id="infoModal.id"
-                  :title="infoModal.title"
-                  ok-only
-                  @hide="resetInfoModal"
-                >
-                  <pre>{{ infoModal.content }}</pre>
-                </b-modal>
               </b-tab>
               <b-tab title="Contacts" @click="setTargetFolder('Contacts')">
                 <b-table
@@ -385,7 +327,6 @@
     </b-row>
   </b-container>
 </template>
-
 <script>
 export default {
   data() {
@@ -605,9 +546,9 @@ export default {
         Word: document.getElementById("filter").value
       };
       let b = [];
-      b.push({email:this.items[0]},{khalo:"ahmed (ana baba yala)"});
+      b.push({ email: this.items[0] }, { khalo: "ahmed (ana baba yala)" });
       //a.push({khalo :"ahmed (ana baba yala)"});
-      console.log("\n\n"+JSON.stringify(b));
+      console.log("\n\n" + JSON.stringify(b));
       fetch("http://localhost:8085//Filter", {
         method: "POST",
         headers: {
@@ -654,21 +595,21 @@ export default {
           }*/
         });
     },
-    delete(v){
+    delete(v) {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
       console.log(email);
       let a = {
-        from:"",
+        from: "",
         to: "",
-        priority:"",
-        body:"" ,
+        priority: "",
+        body: "",
         subject: "",
         name: "",
         date: "14/2/2000",
-        email:email + "@fray.com",
-        targetFolder:this.targetFolder
+        email: email + "@fray.com",
+        targetFolder: this.targetFolder
       };
       document.getElementById("To").value = "";
       document.getElementById("priority").value = 1;
@@ -726,5 +667,25 @@ export default {
 .ahmed {
   width: 1200px;
   height: 100%;
+}
+.delete {
+  width: 35px;
+  height: 30px;
+  margin: 10px 20px 10px 20px;
+  background-color: red;
+  color: white;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 2px solid black;
+}
+.delete2:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.restore {
+  background-color: green;
+}
+.rewrite {
+  background-color: blue;
 }
 </style>
