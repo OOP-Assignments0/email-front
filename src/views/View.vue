@@ -160,7 +160,7 @@
                     <b-button size="sm" @click="row.toggleDetails">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
-                    <button class="delete">
+                    <button class="delete" @click="deletee((currentPage-1)*10+ row.index);">
                       <i class="fa fa-trash"></i>
                     </button>
                   </template>
@@ -334,12 +334,12 @@ export default {
       targetFolder: "Inbox",
       selected: "A",
       options: [
-        { value: "sender", text: "Sender" },
-        { value: "receiver", text: "Receiver" },
-        { value: "subject", text: "Subject" },
-        { value: "body", text: "Body" },
+        { value: "Sender", text: "Sender" },
+        { value: "Receiver", text: "Receiver" },
+        { value: "Subject", text: "Subject" },
+        { value: "Body", text: "Body" },
         { value: "Date", text: "Date" },
-        { value: "piriority", text: "Importance" }
+        { value: "Importance", text: "Importance" }
       ],
       selected2: "all",
       options2: [
@@ -506,7 +506,8 @@ export default {
       console.log(document.getElementById("Sort").value + "\ni'm in sort");
       let a = {
         email: email + "@fray.com",
-        SortType: document.getElementById("Sort").value
+        SortType: document.getElementById("Sort").value,
+        targetFolder: this.targetFolder
       };
       fetch("http://localhost:8085//Sort", {
         method: "POST",
@@ -595,7 +596,8 @@ export default {
           }*/
         });
     },
-    delete(v) {
+    deletee(v) {
+      console.log(v);
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
