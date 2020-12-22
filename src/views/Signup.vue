@@ -10,7 +10,7 @@
           <label>Email Address</label>
         </div>
         <div class="field">
-          <input type="text" required v-model="username"/>
+          <input type="text" required v-model="username" />
           <label>User Name</label>
         </div>
         <div class="field">

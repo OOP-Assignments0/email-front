@@ -4,7 +4,7 @@
       <div class="title">
         Welcome
       </div>
-      <form action="#" @submit="submit">
+      <form @submit="submit">
         <div class="field">
           <input type="text" required v-model="email" />
           <label>Email Address</label>
