@@ -416,9 +416,7 @@ export default {
         { value: 3, text: "3" },
         { value: 4, text: "4" }
       ],
-      items: [
-        
-      ],
+      items: [],
       fields: [
         { key: "from", label: "Sender" },
         { key: "to", label: "Receiver" },
@@ -519,7 +517,7 @@ export default {
         body: document.getElementById("textarea").value,
         subject: document.getElementById("Subject").value,
         name: document.getElementById("Subject").value,
-        date: moment().format('DD:MM:YYYY hh:mm:ss')
+        date: moment().format("DD:MM:YYYY hh:mm:ss")
       };
       fetch("http://localhost:8085//Send", {
         method: "POST",
@@ -640,12 +638,12 @@ export default {
       this.items=arr;*/
       let arr = [];
       var obj = JSON.parse(a);
-      for (let i = 0 ; i< obj.length ; i++){
+      for (let i = 0; i < obj.length; i++) {
         arr.push(obj[i]);
         //console.log(arr);
       }
-      this.items=arr;
-    },
+      this.items = arr;
+    }
   }
 };
 </script>
