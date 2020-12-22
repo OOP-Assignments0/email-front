@@ -676,11 +676,6 @@ export default {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
-      if (this.selected == "A") {
-        var type = "Sender";
-      } else {
-        type = "Subject";
-      }
       console.log(email);
       let a = {
         //write json object for search here
@@ -702,7 +697,7 @@ export default {
           }*/
         });
     },
-    handle(a){
+    handle(){
 
     },
     show(){
