@@ -41,7 +41,7 @@
           variant="primary"
           size="md"
           class="filter"
-          @click="Filter()"
+          @click="handle()"
           >Filter</b-button
         >
       </b-col>
@@ -384,7 +384,7 @@
     </b-row>
   </b-container>
 </template>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
 <script>
 export default {
   data() {
@@ -579,7 +579,7 @@ export default {
         .then(response => response.text())
         .then(data => {
           console.log(data);
-          //put data in table
+          this.handle(data);
         });
     },
     send() {
@@ -594,7 +594,7 @@ export default {
         body: document.getElementById("textarea").value,
         subject: document.getElementById("Subject").value,
         name: document.getElementById("Subject").value,
-        date: "14/2/2000"
+        date: moment().format('DD:MM:YYYY hh:mm:ss')
       };
       fetch("http://localhost:8085//Send", {
         method: "POST",
@@ -632,6 +632,7 @@ export default {
         .then(response => response.text())
         .then(data => {
           console.log(data);
+          this.handle(data);
           /*if (data == "true") {
             this.getEmails();
           } else {
@@ -665,6 +666,7 @@ export default {
         .then(response => response.text())
         .then(data => {
           console.log(data);
+          this.handle(data);
           /*if (data == "true") {
             this.getEmails();
           } else {
@@ -697,12 +699,28 @@ export default {
           }*/
         });
     },
-    handle(){
+    handle(a) {
+      /*let arr = [];
+      //var obj = JSON.parse(a);
+      console.log(this.items);
+      var b = JSON.stringify(this.items);
+      console.log(b);
+      var obj = JSON.parse(b);
 
+      console.log(obj);
+      for (let i = 0 ; i< obj.length ; i++){
+        arr.push(obj[i]);
+        console.log(arr);
+      }
+      this.items=arr;*/
+      let arr = [];
+      var obj = JSON.parse(a);
+      for (let i = 0 ; i< obj.length ; i++){
+        arr.push(obj[i]);
+        //console.log(arr);
+      }
+      this.items=arr;
     },
-    show(){
-
-    }
   }
 };
 </script>
