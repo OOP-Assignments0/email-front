@@ -190,7 +190,7 @@
                     <b-button size="sm" @click="row.toggleDetails">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
-                    <button class="delete">
+                    <button class="delete" @click="deletee((currentPage-1)*10+ row.index)">
                       <i class="fa fa-trash"></i>
                     </button>
                   </template>
@@ -223,7 +223,7 @@
                     <b-button size="sm" @click="row.toggleDetails">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
-                    <button class="delete">
+                    <button class="delete" @click="deletee((currentPage-1)*10+ row.index)">
                       <i class="fa fa-trash"></i>
                     </button>
                   </template>
@@ -250,13 +250,13 @@
                   small
                 >
                   <template #cell(actions)="row">
-                    <button class="delete restore">
+                    <button class="delete restore" @click="restore((currentPage-1)*10+ row.index)" >
                       <i class="fa fa-undo"></i>
                     </button>
                     <b-button size="sm" @click="row.toggleDetails">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
-                    <button class="delete">
+                    <button class="delete" @click="deletee((currentPage-1)*10+ row.index)">
                       <i class="fa fa-trash"></i>
                     </button>
                   </template>
@@ -602,23 +602,12 @@ export default {
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
       console.log(email);
-      let a = {
-        from: "",
-        to: "",
-        priority: "",
-        body: "",
-        subject: "",
-        name: "",
-        date: "14/2/2000",
-        email: email + "@fray.com",
-        targetFolder: this.targetFolder
-      };
-      document.getElementById("To").value = "";
-      document.getElementById("priority").value = 1;
-      document.getElementById("textarea").value = "";
-      document.getElementById("Subject").value = "";
-      this.on = false;
-      fetch("http://localhost:8085//" + v, {
+      let a = [];
+      a.push({mail:this.items[v]});
+      a.push({email:email + "@fray.com"});
+      a.push({targetFolder:this.targetFolder});
+      //this.on = false;
+      fetch("http://localhost:8085//Delete", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -628,8 +617,38 @@ export default {
         .then(response => response.text())
         .then(data => {
           console.log(data);
-          //alert(data);
-          this.handle(data);
+          if (data == "true") {
+            this.getEmails();
+          } else {
+            alert(data);
+          }
+        });
+    },
+    restore(v) {
+      console.log(v);
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const email = urlParams.get("email");
+      console.log(email);
+      let a = [];
+      a.push({mail:this.items[v]});
+      a.push({email:email + "@fray.com"});
+      //this.on = false;
+      fetch("http://localhost:8085//Restore", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(a)
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          if (data == "true") {
+            this.getEmails();
+          } else {
+            alert(data);
+          }
         });
     },
     handle(a) {
