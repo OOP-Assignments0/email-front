@@ -604,6 +604,10 @@ export default {
         targetFolder: this.targetFolder,
         Word: document.getElementById("filter").value
       };
+      let b = [];
+      b.push({email:this.items[0]},{khalo:"ahmed (ana baba yala)"});
+      //a.push({khalo :"ahmed (ana baba yala)"});
+      console.log("\n\n"+JSON.stringify(b));
       fetch("http://localhost:8085//Filter", {
         method: "POST",
         headers: {
@@ -648,6 +652,41 @@ export default {
           } else {
             alert(data);
           }*/
+        });
+    },
+    delete(v){
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const email = urlParams.get("email");
+      console.log(email);
+      let a = {
+        from:"",
+        to: "",
+        priority:"",
+        body:"" ,
+        subject: "",
+        name: "",
+        date: "14/2/2000",
+        email:email + "@fray.com",
+        targetFolder:this.targetFolder
+      };
+      document.getElementById("To").value = "";
+      document.getElementById("priority").value = 1;
+      document.getElementById("textarea").value = "";
+      document.getElementById("Subject").value = "";
+      this.on = false;
+      fetch("http://localhost:8085//" + v, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(a)
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          //alert(data);
+          this.handle(data);
         });
     },
     handle(a) {
