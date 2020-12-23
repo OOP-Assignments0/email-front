@@ -56,7 +56,7 @@
         <div class=" ">Search:</div>
       </b-col>
       <b-col lg="7" class="my-1">
-        <input type="text" id="Search" class="filter" @keydown="search()" />
+        <input type="text" id="Search" class="filter" @keyup="search()" />
       </b-col>
       <b-col lg="3" class="my-1">
         <b-form-select v-model="selected2" :options="options2"></b-form-select>
@@ -593,6 +593,7 @@ export default {
       const email = urlParams.get("email");
       console.log(email);
       console.log("i'm in search");
+      console.log(document.getElementById("Search").value);
       let a = {
         str : document.getElementById("Search").value,
         region : this.targetFolder,
@@ -600,7 +601,7 @@ export default {
         Useremail: email + "@fray.com"
       };
       fetch("http://localhost:8085//Search", {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
@@ -614,6 +615,7 @@ export default {
           } else {
             alert(data);
           }*/
+          this.handle(data);
         });
     },
     deletee(v) {
