@@ -6,6 +6,16 @@
     />
     <!-- User Interface controls -->
     <b-row>
+          <b-col lg="11" class="my-1">
+          <div class="title"> FRAY MAILS</div>
+          </b-col>
+          <b-col lg="1" class="my-1">
+            <b-button class="filter" @click="open_settings">
+                <i class="fa fa-cogs"></i>
+            </b-button>
+          </b-col>
+      </b-row>
+    <b-row>
       <b-col lg="2" class="my-1">
         <div class=" ">Sort:</div>
       </b-col>
@@ -301,21 +311,23 @@
                   show-empty
                   small
                 >
-                  <template #cell(name)="row">
-                    {{ row.value.first }} {{ row.value.last }}
-                  </template>
+                
 
                   <template #cell(actions)="row">
                     <b-button
                       size="sm"
-                      @click="info(row.item, row.index, $event.target)"
-                      class="mr-1"
+                      class="mr-1  chat"
+                      variant="success"
+                      @click="chatting((currentPage - 1) * 10 + row.index)"
                     >
-                      Info modal
+                      Chat
                     </b-button>
-                    <b-button size="sm" @click="row.toggleDetails">
-                      {{ row.detailsShowing ? "Hide" : "Show" }} Details
-                    </b-button>
+                    <button
+                      class="delete"
+                      @click="deletee((currentPage - 1) * 10 + row.index)"
+                    >
+                      <i class="fa fa-trash"></i>
+                    </button>
                   </template>
 
                   <template #row-details="row">
@@ -328,16 +340,6 @@
                     </b-card>
                   </template>
                 </b-table>
-
-                <!-- Info modal -->
-                <b-modal
-                  :id="infoModal.id"
-                  :title="infoModal.title"
-                  ok-only
-                  @hide="resetInfoModal"
-                >
-                  <pre>{{ infoModal.content }}</pre>
-                </b-modal>
               </b-tab>
             </b-tabs>
           </b-card>
@@ -377,7 +379,11 @@ export default {
         { value: 3, text: "3" },
         { value: 4, text: "4" }
       ],
-      items: [],
+      items: [
+        {email:"ahmed@fray.com"  ,Passward:123,name:"ahmed"},
+        {email:"ahmed@fray.com"  ,Passward:123,name:"ahmed"},
+        {email:"ahmed@fray.com"  ,Passward:123,name:"ahmed"}
+      ],
       fields: [
         { key: "from", label: "Sender" },
         { key: "to", label: "Receiver" },
@@ -386,8 +392,9 @@ export default {
         { key: "actions", label: "Actions" }
       ],
       fields2: [
-        { key: "user", label: "User Name" },
-        { key: "email", label: "Email Address" }
+        { key: "name", label: "User Name" },
+        { key: "email", label: "Email Address" },
+        { key: "actions", label: "Actions" }
       ],
       on: false,
       totalRows: 1,
@@ -434,6 +441,12 @@ export default {
     })
   },
   methods: {
+    open_settings() {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const email = urlParams.get("email");
+      this.$router.push("/settings?email=" + email);
+    },
     select(event){
       const f = event.target.files;
       if(!this.attachments.has(f[0].name)){
@@ -731,7 +744,53 @@ export default {
         arr.push(obj[i]);
       }
       this.items = arr;
-    }
+    },
+    chatting(row){
+      this.on= true;
+      document.getElementById("To").value = this.items[row].email;
+    },
+    deleteee(row){
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const email = urlParams.get("email");
+      console.log(email);
+      let a = {
+        Useremail:email + "@fray.com",
+        FriendEmail:this.items[row].email
+      };
+      fetch("http://localhost:8085//DeleteFriend", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(a)
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+            this.getContacts();
+        });
+    },
+    getContacts() {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const email = urlParams.get("email");
+      let a = {
+        email: email + "@fray.com",
+      };
+      fetch("http://localhost:8085//GetFriends", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(a)
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          this.handle(data);
+        });
+    },
   }
 };
 </script>
@@ -740,6 +799,13 @@ export default {
 @import "node_modules/bootstrap-vue/src/index.scss";
 </style>
 <style lang="scss">
+.title{
+    text-align: center;
+    color:white;
+    background-color: RoyalBlue;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 30px;
+}
 .sorting {
   padding: 10px 20px 10px 20px;
   color: rgb(0, 0, 0);
@@ -781,5 +847,8 @@ export default {
 }
 .rewrite {
   background-color: blue;
+}
+.chat{
+  width:100px;
 }
 </style>
