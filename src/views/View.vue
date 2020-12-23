@@ -123,6 +123,9 @@
             </b-col>
           </b-row>
           <b-row>
+            <div id="attachments"></div>
+          </b-row>
+          <b-row>
             <b-col sm="10" md="10" class="my-1">
               <div></div>
             </b-col>
