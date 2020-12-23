@@ -489,7 +489,8 @@ export default {
         body: document.getElementById("textarea").value,
         subject: document.getElementById("Subject").value,
         name: document.getElementById("Subject").value,
-        date: "14/2/2000"
+        date: "14/2/2000",
+        folder: "Inbox"
       };
       document.getElementById("To").value = "";
       document.getElementById("priority").value = 1;
