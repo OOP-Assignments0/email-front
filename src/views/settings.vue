@@ -88,7 +88,7 @@ export default {
       const urlParams = new URLSearchParams(queryString);
       const emaill = urlParams.get("email");
       let a = {
-          email:emaill
+          email:emaill+ "@fray.com",
       }
       this.fetching(a);
   },

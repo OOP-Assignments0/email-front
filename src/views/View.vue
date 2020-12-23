@@ -301,7 +301,7 @@
                   </template>
                 </b-table>
               </b-tab>
-              <b-tab title="Contacts" @click="setTargetFolder('Contacts')">
+              <b-tab title="Contacts" @click="getContacts">
                 <b-table
                   :items="items"
                   :fields="fields2"
@@ -324,7 +324,7 @@
                     </b-button>
                     <button
                       class="delete"
-                      @click="deletee((currentPage - 1) * 10 + row.index)"
+                      @click="deleteee((currentPage - 1) * 10 + row.index)"
                     >
                       <i class="fa fa-trash"></i>
                     </button>
