@@ -123,6 +123,7 @@
             </b-col>
           </b-row>
           <b-row>
+            <input type="file" id="file" />
             <div id="attachments"></div>
           </b-row>
           <b-row>
@@ -402,7 +403,9 @@ export default {
         id: "info-modal",
         title: "",
         content: ""
-      }
+      },
+      attachments: null,
+      attachments_number: 0
     };
   },
   computed: {
@@ -421,8 +424,56 @@ export default {
     this.targetFolder = "Inbox";
     this.selected = "A";
     this.getEmails();
+    const th = this;
+    this.attachments = new FormData();
+    document.getElementById('file').addEventListener('change',this.select);
+    document.getElementById('attachments').addEventListener('click',function(e){
+      if(e.target && e.target.nodeName == 'BUTTON'){
+        th.deleteAttach(e.target.id);
+      }
+    })
   },
   methods: {
+    select(event){
+      const f = event.target.files;
+      if(!this.attachments.has(f[0].name)){
+        this.attachments.set(f[0].name, f[0]);
+        this.attachments_number++;
+        this.addAttachToHTML(f[0]); 
+      }
+      else
+        alert("File already excist"); 
+      document.getElementById("file").value = null;  
+    },
+    addAttachToHTML(file){
+      var div = document.createElement("div"); 
+      div.setAttribute('id',file.name);
+      var name = document.createElement("input"); 
+      name.setAttribute("id","attachName"); name.setAttribute("value","name: "+file.name); name.disabled = true;
+      var type = document.createElement("input"); 
+      type.setAttribute("id","attachType"); type.setAttribute("value","type: "+file.type); type.disabled = true;
+      var size = document.createElement("input"); 
+      size.setAttribute("id","attachSize"); size.setAttribute("value","size: "+file.size+" bytes"); size.disabled = true;
+      var del = document.createElement("button"); 
+      del.setAttribute("id",file.name); 
+      var text = document.createTextNode("delete");
+      del.appendChild(text);
+      div.appendChild(name);
+      div.appendChild(type);
+      div.appendChild(size);
+      div.appendChild(del);
+      document.getElementById("attachments").appendChild(div);           
+    },
+    deleteAttach(fileName){
+      if(this.attachments.has(fileName)){
+        this.attachments.delete(fileName);
+        this.attachments_number--;
+        var item = document.getElementById(fileName);
+        item.parentNode.removeChild(item);
+      }
+      else
+        alert("Trying to delete nonexistent file")
+    },
     toggle_on() {
       this.on = !this.on;
       if (this.on == false) {
