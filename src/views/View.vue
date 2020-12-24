@@ -558,16 +558,6 @@ export default {
       for(var pair of this.attachments.entries()) {
         a.append('file', pair[1]);
       }
-      /*let a = {
-        from: email + "@fray.com",
-        to: document.getElementById("To").value,
-        priority: document.getElementById("priority").value,
-        body: document.getElementById("textarea").value,
-        subject: document.getElementById("Subject").value,
-        name: document.getElementById("Subject").value,
-        date: "14/2/2000",
-        folder: "Inbox"
-      };*/
       document.getElementById("To").value = "";
       document.getElementById("priority").value = 1;
       document.getElementById("textarea").value = "";
