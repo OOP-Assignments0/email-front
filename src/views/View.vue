@@ -654,32 +654,31 @@ export default {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
-      console.log(email);
-      console.log("i'm in search");
-      console.log(document.getElementById("Search").value);
       let a = {
         str : document.getElementById("Search").value,
         region : this.targetFolder,
         emailPart: "all",
         Useremail: email + "@fray.com"
       };
-      fetch("http://localhost:8085//Search", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(a)
-      })
-        .then(response => response.text())
-        .then(data => {
-          console.log(data);
-          /*if (data == "true") {
-            this.getEmails();
-          } else {
-            alert(data);
-          }*/
-          this.handle(data);
-        });
+      if(a.str != ""){
+        fetch("http://localhost:8085//Search", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(a)
+        })
+          .then(response => response.text())
+          .then(data => {
+            console.log(data);
+            /*if (data == "true") {
+              this.getEmails();
+            } else {
+              alert(data);
+            }*/
+            this.handle(data);
+          });
+      }
     },
     deletee(v) {
       console.log(v);
