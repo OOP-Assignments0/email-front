@@ -533,7 +533,19 @@ export default {
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
       console.log(email);
-      let a = {
+      let a = new FormData();
+      a.append("from",email + "@fray.com");
+      a.append("to",document.getElementById("To").value);
+      a.append("priority",document.getElementById("priority").value);
+      a.append("body",document.getElementById("textarea").value);
+      a.append("subject",document.getElementById("Subject").value);
+      a.append("name",document.getElementById("Subject").value);
+      a.append("date","14/2/2000");
+      a.append("folder","Inbox");
+      for(var pair of this.attachments.entries()) {
+        a.append('file', pair[1]);
+      }
+      /*let a = {
         from: email + "@fray.com",
         to: document.getElementById("To").value,
         priority: document.getElementById("priority").value,
@@ -542,7 +554,7 @@ export default {
         name: document.getElementById("Subject").value,
         date: "14/2/2000",
         folder: "Inbox"
-      };
+      };*/
       document.getElementById("To").value = "";
       document.getElementById("priority").value = 1;
       document.getElementById("textarea").value = "";
@@ -550,10 +562,7 @@ export default {
       this.on = false;
       fetch("http://localhost:8085//" + v, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(a)
+        body: a
       })
         .then(response => response.text())
         .then(data => {
