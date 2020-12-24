@@ -560,6 +560,14 @@ export default {
       document.getElementById("priority").value = 1;
       document.getElementById("textarea").value = "";
       document.getElementById("Subject").value = "";
+      var e = document.getElementById("attachments");  
+      var child = e.lastElementChild;  
+      while (child) { 
+        e.removeChild(child); 
+        child = e.lastElementChild; 
+      }
+      this.attachments = new FormData();
+      this.attachments_number = 0;
       this.on = false;
       fetch("http://localhost:8085//" + v, {
         method: "POST",
@@ -658,25 +666,23 @@ export default {
         emailPart: "all",
         Useremail: email + "@fray.com"
       };
-      if (a.str != "") {
-        fetch("http://localhost:8085//Search", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(a)
-        })
-          .then(response => response.text())
-          .then(data => {
-            console.log(data);
-            /*if (data == "true") {
-              this.getEmails();
-            } else {
-              alert(data);
-            }*/
-            this.handle(data);
-          });
-      }
+      fetch("http://localhost:8085//Search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(a)
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          /*if (data == "true") {
+            this.getEmails();
+          } else {
+            alert(data);
+          }*/
+          this.handle(data);
+        });
     },
     deletee(v) {
       console.log(v);
