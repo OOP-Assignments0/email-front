@@ -1,16 +1,16 @@
 <template>
   <b-container fluid class="ahmed">
-      <b-row>
-          <b-col lg="12" class="my-1">
-          <div class="title"> FRAY MAILS</div>
-          </b-col>
-      </b-row>
-      <b-row>
+    <b-row>
+      <b-col lg="12" class="my-1">
+        <div class="title">FRAY MAILS</div>
+      </b-col>
+    </b-row>
+    <b-row>
       <b-col lg="2" class="my-1">
         <div style="text-align:center;">Useremail:</div>
       </b-col>
       <b-col lg="10" class="my-1">
-        <input type="text" id="email" class="filter"  disabled />
+        <input type="text" id="email" class="filter" disabled />
       </b-col>
     </b-row>
     <b-row>
@@ -18,7 +18,7 @@
         <div style="text-align:center;">Username:</div>
       </b-col>
       <b-col lg="10" class="my-1">
-        <input type="text" id="name" class="filter"/>
+        <input type="text" id="name" class="filter" />
       </b-col>
     </b-row>
     <b-row>
@@ -26,26 +26,27 @@
         <div style="text-align:center;">Passward:</div>
       </b-col>
       <b-col lg="10" class="my-1">
-        <input type="text" id="password" class="filter"/>
+        <input type="text" id="password" class="filter" />
       </b-col>
     </b-row>
     <b-row>
-        <b-col lg="2" class="my-1">
-        <b-button variant="primary" class="filter" @click="toggle_on">Add Contact</b-button>
-        </b-col>
-        <b-col lg="8" class="my-1">
-        </b-col>
-        <b-col lg="2" class="my-1">
+      <b-col lg="2" class="my-1">
+        <b-button variant="primary" class="filter" @click="toggle_on"
+          >Add Contact</b-button
+        >
+      </b-col>
+      <b-col lg="8" class="my-1"> </b-col>
+      <b-col lg="2" class="my-1">
         <b-button variant="success" class="filter" @click="modify">OK</b-button>
-        </b-col>
-        <b-col lg="12" class="my-1">
+      </b-col>
+      <b-col lg="12" class="my-1">
         <b-container v-show="this.on" class="form">
-            <b-row>
+          <b-row>
             <b-col lg="12" class="my-1">
-                <input type="text" id="friend" class="filter"/>
+              <input type="text" id="friend" class="filter" />
             </b-col>
-            </b-row>
-            <b-row>
+          </b-row>
+          <b-row>
             <b-col sm="10" md="10" class="my-1">
               <div></div>
             </b-col>
@@ -59,19 +60,18 @@
                 Add
               </b-button>
             </b-col>
-            </b-row>
+          </b-row>
         </b-container>
-        </b-col>
+      </b-col>
     </b-row>
+    <b-row> </b-row>
     <b-row>
-
-    </b-row>
-    <b-row>
-        <b-col lg="10" class="my-1">
-        </b-col>
-        <b-col lg="2" class="my-1">
-        <b-button variant="danger" class="filter" @click="log_out">log out</b-button>
-        </b-col>
+      <b-col lg="10" class="my-1"> </b-col>
+      <b-col lg="2" class="my-1">
+        <b-button variant="danger" class="filter" @click="log_out"
+          >log out</b-button
+        >
+      </b-col>
     </b-row>
   </b-container>
 </template>
@@ -80,30 +80,30 @@
 export default {
   data() {
     return {
-        on: false
-    }
+      on: false
+    };
   },
-   mounted() {
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const emaill = urlParams.get("email");
-      let a = {
-          email:emaill+ "@fray.com",
-      }
-      this.fetching(a);
+  mounted() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const emaill = urlParams.get("email");
+    let a = {
+      email: emaill + "@fray.com"
+    };
+    this.fetching(a);
   },
-   methods: {
+  methods: {
     toggle_on() {
       this.on = !this.on;
     },
-    addContact(){
+    addContact() {
       this.on = !this.on;
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
       let a = {
         Useremail: email + "@fray.com",
-        FriendEmail:document.getElementById("friend").value
+        FriendEmail: document.getElementById("friend").value
       };
       fetch("http://localhost:8085//AddFriend", {
         method: "POST",
@@ -115,14 +115,14 @@ export default {
         .then(response => response.text())
         .then(data => {
           if (data == "true") {
-             console.log("add contact");
+            console.log("add contact");
           } else {
             alert(data);
           }
         });
     },
-    fetching(a){
-        fetch("http://localhost:8085//GetContact", {
+    fetching(a) {
+      fetch("http://localhost:8085//GetContact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -135,19 +135,19 @@ export default {
           this.handle(data);
         });
     },
-    handle(v){
-        var obj = JSON.parse(v);
-        document.getElementById("email").value=obj.email;
-        document.getElementById("name").value=obj.name;
-        document.getElementById("password").value=obj.password;
+    handle(v) {
+      var obj = JSON.parse(v);
+      document.getElementById("email").value = obj.email;
+      document.getElementById("name").value = obj.name;
+      document.getElementById("password").value = obj.password;
     },
-    modify(){
-        let a={
-            email:document.getElementById("email").value,
-            name:document.getElementById("name").value,
-            password: document.getElementById("password").value
-        };
-        fetch("http://localhost:8085//ModifyContact", {
+    modify() {
+      let a = {
+        email: document.getElementById("email").value,
+        name: document.getElementById("name").value,
+        password: document.getElementById("password").value
+      };
+      fetch("http://localhost:8085//ModifyContact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -156,23 +156,19 @@ export default {
       })
         .then(response => response.text())
         .then(data => {
-            data;
-         const queryString = window.location.search;
-         const urlParams = new URLSearchParams(queryString);
-         const email = urlParams.get("email");
-         this.$router.push("/view?email=" + email);
+          data;
+          const queryString = window.location.search;
+          const urlParams = new URLSearchParams(queryString);
+          const email = urlParams.get("email");
+          this.$router.push("/view?email=" + email);
         });
     },
-    log_out(){
-        this.$router.push("/");
+    log_out() {
+      this.$router.push("/");
     }
-
-}
-}
-
-
+  }
+};
 </script>
-
 
 <style lang="scss">
 @import "node_modules/bootstrap/scss/bootstrap.scss";
@@ -183,12 +179,12 @@ export default {
   width: 1200px;
   height: 100%;
 }
-.title{
-    text-align: center;
-    color:white;
-    background-color:RoyalBlue;
-    font-family: "Lucida Console", "Courier New", monospace;
-    font-size: 30px;
+.title {
+  text-align: center;
+  color: white;
+  background-color: RoyalBlue;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 30px;
 }
 .sorting {
   padding: 10px 20px 10px 20px;

@@ -6,15 +6,15 @@
     />
     <!-- User Interface controls -->
     <b-row>
-          <b-col lg="11" class="my-1">
-          <div class="title"> FRAY MAILS</div>
-          </b-col>
-          <b-col lg="1" class="my-1">
-            <b-button class="filter" @click="open_settings">
-                <i class="fa fa-cogs"></i>
-            </b-button>
-          </b-col>
-      </b-row>
+      <b-col lg="11" class="my-1">
+        <div class="title">FRAY MAILS</div>
+      </b-col>
+      <b-col lg="1" class="my-1">
+        <b-button class="filter" @click="open_settings">
+          <i class="fa fa-cogs"></i>
+        </b-button>
+      </b-col>
+    </b-row>
     <b-row>
       <b-col lg="2" class="my-1">
         <div class=" ">Sort:</div>
@@ -237,7 +237,7 @@
                   small
                 >
                   <template #cell(actions)="row">
-                    <button class="delete rewrite">
+                    <button class="delete rewrite"  @click="rewiteMessage((currentPage - 1) * 10 + row.index)">
                       <i class="fa fa-edit"></i>
                     </button>
                     <b-button size="sm" @click="row.toggleDetails">
@@ -311,8 +311,6 @@
                   show-empty
                   small
                 >
-                
-
                   <template #cell(actions)="row">
                     <b-button
                       size="sm"
@@ -379,11 +377,7 @@ export default {
         { value: 3, text: "3" },
         { value: 4, text: "4" }
       ],
-      items: [
-        {email:"ahmed@fray.com"  ,Passward:123,name:"ahmed"},
-        {email:"ahmed@fray.com"  ,Passward:123,name:"ahmed"},
-        {email:"ahmed@fray.com"  ,Passward:123,name:"ahmed"}
-      ],
+      items: [],
       fields: [
         { key: "from", label: "Sender" },
         { key: "to", label: "Receiver" },
@@ -449,7 +443,7 @@ export default {
       const email = urlParams.get("email");
       this.$router.push("/settings?email=" + email);
     },
-    select(event){
+    select(event) {
       const f = event.target.files;
       if (!this.attachments.has(f[0].name)) {
         this.attachments.set(f[0].name, f[0]);
@@ -551,16 +545,16 @@ export default {
       const email = urlParams.get("email");
       console.log(email);
       let a = new FormData();
-      a.append("from",email + "@fray.com");
-      a.append("to",document.getElementById("To").value);
-      a.append("priority",document.getElementById("priority").value);
-      a.append("body",document.getElementById("textarea").value);
-      a.append("subject",document.getElementById("Subject").value);
-      a.append("name",document.getElementById("Subject").value);
-      a.append("date","14/2/2000");
-      a.append("folder","Inbox");
-      for(var pair of this.attachments.entries()) {
-        a.append('file', pair[1]);
+      a.append("from", email + "@fray.com");
+      a.append("to", document.getElementById("To").value);
+      a.append("priority", document.getElementById("priority").value);
+      a.append("body", document.getElementById("textarea").value);
+      a.append("subject", document.getElementById("Subject").value);
+      a.append("name", document.getElementById("Subject").value);
+      a.append("date", "14/2/2000");
+      a.append("folder", "Inbox");
+      for (var pair of this.attachments.entries()) {
+        a.append("file", pair[1]);
       }
       document.getElementById("To").value = "";
       document.getElementById("priority").value = 1;
@@ -632,10 +626,10 @@ export default {
         targetFolder: this.targetFolder,
         Word: document.getElementById("filter").value
       };
-      let b = [];
-      b.push({ email: this.items[0] }, { khalo: "ahmed (ana baba yala)" });
+      //let b = [];
+      //b.push({ email: this.items[0] }, { khalo: "ahmed (ana baba yala)" });
       //a.push({khalo :"ahmed (ana baba yala)"});
-      console.log("\n\n" + JSON.stringify(b));
+      //console.log("\n\n" + JSON.stringify(b));
       fetch("http://localhost:8085//Filter", {
         method: "POST",
         headers: {
@@ -664,7 +658,7 @@ export default {
         emailPart: "all",
         Useremail: email + "@fray.com"
       };
-      if(a.str != ""){
+      if (a.str != "") {
         fetch("http://localhost:8085//Search", {
           method: "POST",
           headers: {
@@ -747,18 +741,25 @@ export default {
       }
       this.items = arr;
     },
-    chatting(row){
-      this.on= true;
+    chatting(row) {
+      this.on = true;
       document.getElementById("To").value = this.items[row].email;
     },
-    deleteee(row){
+    rewiteMessage(v){
+      this.on = true;
+      document.getElementById("To").value = this.items[v].to;
+      document.getElementById("priority").value = this.items[v].priority;
+      document.getElementById("textarea").value = this.items[v].body;
+      document.getElementById("Subject").value = this.items[v].subject;
+    },
+    deleteee(row) {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
       console.log(email);
       let a = {
-        Useremail:email + "@fray.com",
-        FriendEmail:this.items[row].email
+        Useremail: email + "@fray.com",
+        FriendEmail: this.items[row].email
       };
       fetch("http://localhost:8085//DeleteFriend", {
         method: "POST",
@@ -770,7 +771,7 @@ export default {
         .then(response => response.text())
         .then(data => {
           console.log(data);
-            this.getContacts();
+          this.getContacts();
         });
     },
     getContacts() {
@@ -778,7 +779,7 @@ export default {
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
       let a = {
-        email: email + "@fray.com",
+        email: email + "@fray.com"
       };
       fetch("http://localhost:8085//GetFriends", {
         method: "POST",
@@ -792,7 +793,7 @@ export default {
           console.log(data);
           this.handle(data);
         });
-    },
+    }
   }
 };
 </script>
@@ -801,12 +802,12 @@ export default {
 @import "node_modules/bootstrap-vue/src/index.scss";
 </style>
 <style lang="scss">
-.title{
-    text-align: center;
-    color:white;
-    background-color: RoyalBlue;
-    font-family: "Lucida Console", "Courier New", monospace;
-    font-size: 30px;
+.title {
+  text-align: center;
+  color: white;
+  background-color: RoyalBlue;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 30px;
 }
 .sorting {
   padding: 10px 20px 10px 20px;
@@ -850,7 +851,7 @@ export default {
 .rewrite {
   background-color: blue;
 }
-.chat{
-  width:100px;
+.chat {
+  width: 100px;
 }
 </style>
