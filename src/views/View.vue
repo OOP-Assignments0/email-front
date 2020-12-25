@@ -689,6 +689,25 @@ export default {
         item.parentNode.removeChild(item);
       } else alert("Trying to delete nonexistent file");
     },
+    download(Path, name){
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      let request = new Request("http://localhost:8085/download/"+name,{
+          method: 'POST',
+          headers: myHeaders,
+          body: JSON.stringify({path : Path})
+      });
+      fetch(request).then(response => response.blob())
+      .then(blob => {
+          var url = window.URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = name;
+          document.body.appendChild(a);
+          a.click();    
+          a.remove();        
+      });
+    },
     toggle_on() {
       this.on = !this.on;
       if (this.on == false) {
