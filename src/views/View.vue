@@ -184,11 +184,62 @@
 
                   <template #row-details="row">
                     <b-card>
-                      <ul>
+                      <ul v-show="false">
                         <li v-for="(value, key) in row.item" :key="key">
                           {{ key }}: {{ value }}
                         </li>
                       </ul>
+                      <b-container  class="form">
+                        <form>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>From:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter"  :value= row.item.from   disabled />
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>TO:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter"  :value= row.item.to  disabled/>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Subject:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter"  :value= row.item.subject  disabled/>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Importance:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter"   :value= row.item.priority  disabled/>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Body:</div>
+                            </b-col>
+                            <b-col lg="12" class="my-1">
+                              <b-form-textarea
+                                id="textareaa"
+                                v-model= row.item.body
+                                placeholder="Enter something..."
+                                rows="3"
+                                max-rows="6"
+                                disabled
+                              ></b-form-textarea>
+                            </b-col>
+                          </b-row>
+                        </form>
+                      </b-container>
                     </b-card>
                   </template>
                 </b-table>
@@ -217,11 +268,62 @@
 
                   <template #row-details="row">
                     <b-card>
-                      <ul>
+                      <ul v-show="false">
                         <li v-for="(value, key) in row.item" :key="key">
                           {{ key }}: {{ value }}
                         </li>
                       </ul>
+                      <b-container  class="form">
+                        <form>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>From:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter"  :value= row.item.from   disabled />
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>TO:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter"  :value= row.item.to  disabled/>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Subject:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter"   :value= row.item.subject  disabled/>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Importance:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter"   :value= row.item.priority  disabled/>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Body:</div>
+                            </b-col>
+                            <b-col lg="12" class="my-1">
+                              <b-form-textarea
+                                id="textareaa"
+                                v-model= row.item.body
+                                placeholder="Enter something..."
+                                rows="3"
+                                max-rows="6"
+                                disabled
+                              ></b-form-textarea>
+                            </b-col>
+                          </b-row>
+                        </form>
+                      </b-container>
                     </b-card>
                   </template>
                 </b-table>
@@ -253,11 +355,62 @@
 
                   <template #row-details="row">
                     <b-card>
-                      <ul>
+                      <ul v-show="false">
                         <li v-for="(value, key) in row.item" :key="key">
                           {{ key }}: {{ value }}
                         </li>
                       </ul>
+                      <b-container  class="form">
+                        <form>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>From:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter"  :value= row.item.from   disabled />
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>TO:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter"  :value= row.item.to  disabled/>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Subject:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter"   :value= row.item.subject  disabled/>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Importance:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter"   :value= row.item.priority  disabled/>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Body:</div>
+                            </b-col>
+                            <b-col lg="12" class="my-1">
+                              <b-form-textarea
+                                id="textareaa"
+                                v-model= row.item.body
+                                placeholder="Enter something..."
+                                rows="3"
+                                max-rows="6"
+                                disabled
+                              ></b-form-textarea>
+                            </b-col>
+                          </b-row>
+                        </form>
+                      </b-container>
                     </b-card>
                   </template>
                 </b-table>
@@ -292,11 +445,62 @@
 
                   <template #row-details="row">
                     <b-card>
-                      <ul>
+                      <ul v-show="false">
                         <li v-for="(value, key) in row.item" :key="key">
                           {{ key }}: {{ value }}
                         </li>
                       </ul>
+                      <b-container  class="form">
+                        <form>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>From:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter" id="from" :value= row.item.from   disabled />
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>TO:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter" id="Too" :value= row.item.to  disabled/>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Subject:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter" id="Subjectt"  :value= row.item.subject  disabled/>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Importance:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input type="text" class="filter" id="importacee"  :value= row.item.priority  disabled/>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Body:</div>
+                            </b-col>
+                            <b-col lg="12" class="my-1">
+                              <b-form-textarea
+                                id="textareaa"
+                                v-model= row.item.body
+                                placeholder="Enter something..."
+                                rows="3"
+                                max-rows="6"
+                                disabled
+                              ></b-form-textarea>
+                            </b-col>
+                          </b-row>
+                        </form>
+                      </b-container>
                     </b-card>
                   </template>
                 </b-table>
