@@ -1108,6 +1108,7 @@ export default {
       document.getElementById("priority").value = this.items[v].priority;
       document.getElementById("textarea").value = this.items[v].body;
       document.getElementById("Subject").value = this.items[v].subject;
+      this.removeFromTrash();
     },
     deleteee(row) {
       const queryString = window.location.search;
@@ -1149,6 +1150,30 @@ export default {
         .then(data => {
           console.log(data);
           this.handle(data);
+        });
+    },
+    removeFromTrash(){
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const email = urlParams.get("email");
+      let a = [];
+      a.push({ mail: this.items[v] });
+      a.push({ email: email + "@fray.com" });
+      fetch("http://localhost:8085//RemoveTrash", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(a)
+      })
+        .then(response => response.text())
+        .then(data => {
+          //console.log(data);
+          if (data == "true") {
+            this.getEmails();
+          } else {
+            alert(data);
+          }
         });
     }
   }
