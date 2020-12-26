@@ -69,7 +69,7 @@
         <input type="text" id="Search" class="filter" @keyup="search()" />
       </b-col>
       <b-col lg="3" class="my-1">
-        <b-form-select v-model="selected2" :options="options2"></b-form-select>
+        <b-form-select id="selectform" v-model="selected2" :options="options2"></b-form-select>
       </b-col>
     </b-row>
     <b-row>
@@ -798,8 +798,6 @@ export default {
         { value: "receiver", text: "Receiver" },
         { value: "subject", text: "Subject" },
         { value: "body", text: "Body" },
-        { value: "Date", text: "Date" },
-        { value: "piriority", text: "Importance" },
         { value: "all", text: "all" }
       ],
       selected3: 1,
@@ -1150,7 +1148,7 @@ export default {
       let a = {
         str: document.getElementById("Search").value,
         region: this.targetFolder,
-        emailPart: "all",
+        emailPart: document.getElementById("selectform").value,
         Useremail: email + "@fray.com"
       };
       fetch("http://localhost:8085//Search", {
