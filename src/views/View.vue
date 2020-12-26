@@ -572,29 +572,6 @@
                               ></b-form-textarea>
                             </b-col>
                           </b-row>
-                          <b-row>
-                            <b-col lg="12" class="my-1">
-                              <b-table
-                                :items="items3"
-                                :fields="fields3"
-                                :current-page="currentPage"
-                                :per-page="perPage"
-                                stacked="md"
-                                show-empty
-                                small
-                              >
-                                <template #cell(actions)="row">
-                                  <b-button
-                                    class="filter"
-                                    variant="primary"
-                                    @click="download(path, row.item.name)"
-                                  >
-                                    Dowload
-                                  </b-button>
-                                </template>
-                              </b-table>
-                            </b-col>
-                          </b-row>
                         </form>
                       </b-container>
                     </b-card>
@@ -1125,7 +1102,7 @@ export default {
     },
     Filter() {
       console.log(this.email);
-      /*
+      
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
@@ -1164,7 +1141,7 @@ export default {
           } else {
             alert(data);
           }*/
-      /* });*/
+      });
     },
     search() {
       const queryString = window.location.search;
