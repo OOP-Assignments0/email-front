@@ -48,14 +48,14 @@
         </b-form-group>
       </b-col>
       <b-col lg="8" class="my-1">
-        <input type="text" id="filter" class="filter" />
+        <input type="text" id="filter" class="filterr" />
       </b-col>
       <b-col lg="2" class="my-1">
         <b-button
           type="submit"
           variant="primary"
           size="md"
-          class="filter"
+          class="filterr"
           @click="Filter()"
           >Filter</b-button
         >
@@ -1012,7 +1012,7 @@ export default {
         targetFolder: this.targetFolder
       };
       fetch("http://localhost:8085//GetEmails", {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json"
         },
@@ -1038,36 +1038,42 @@ export default {
       a.append("name", document.getElementById("Subject").value);
       a.append("date", "14/2/2000");
       a.append("folder", "Inbox");
+      var size = 0;
       for (var pair of this.attachments.entries()) {
         a.append("file", pair[1]);
+        size += pair[1].size;
       }
-      document.getElementById("To").value = "";
-      document.getElementById("priority").value = 1;
-      document.getElementById("textarea").value = "";
-      document.getElementById("Subject").value = "";
-      var e = document.getElementById("attachments");
-      var child = e.lastElementChild;
-      while (child) {
-        e.removeChild(child);
-        child = e.lastElementChild;
+      if (size <= 30000000) {
+        document.getElementById("To").value = "";
+        document.getElementById("priority").value = 1;
+        document.getElementById("textarea").value = "";
+        document.getElementById("Subject").value = "";
+        var e = document.getElementById("attachments");
+        var child = e.lastElementChild;
+        while (child) {
+          e.removeChild(child);
+          child = e.lastElementChild;
+        }
+        this.attachments = new FormData();
+        this.attachments_number = 0;
+        this.on = false;
+        fetch("http://localhost:8085//" + v, {
+          method: "POST",
+          body: a
+        })
+          .then(response => response.text())
+          .then(data => {
+            console.log(data);
+            //alert(data);
+            if (data == "true") {
+              this.getEmails();
+            } else {
+              alert(data);
+            }
+          });
+      } else {
+        alert("Your files exeeds maximum size[30 MB]");
       }
-      this.attachments = new FormData();
-      this.attachments_number = 0;
-      this.on = false;
-      fetch("http://localhost:8085//" + v, {
-        method: "POST",
-        body: a
-      })
-        .then(response => response.text())
-        .then(data => {
-          console.log(data);
-          //alert(data);
-          if (data == "true") {
-            this.getEmails();
-          } else {
-            alert(data);
-          }
-        });
     },
     sort() {
       console.log("i'm in sort");
@@ -1183,7 +1189,7 @@ export default {
       a.push({ targetFolder: this.targetFolder });
       //this.on = false;
       fetch("http://localhost:8085//Delete", {
-        method: "POST",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json"
         },
@@ -1256,7 +1262,7 @@ export default {
         FriendEmail: this.items[row].email
       };
       fetch("http://localhost:8085//DeleteFriend", {
-        method: "POST",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json"
         },
@@ -1297,7 +1303,7 @@ export default {
       a.push({ email: email + "@fray.com" });
       //console.log("\n\n\n\n\n\n"+JSON.stringify(a));
       fetch("http://localhost:8085//RemoveDraft", {
-        method: "POST",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json"
         },
@@ -1341,6 +1347,10 @@ export default {
 .filter {
   width: 100%;
   height: 100%;
+}
+.filterr {
+  width: 100%;
+  height: 50px;
 }
 .form {
   border: 2px solid red;
