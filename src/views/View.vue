@@ -171,7 +171,7 @@
                   small
                 >
                   <template #cell(actions)="row">
-                    <b-button size="sm" @click="row.toggleDetails">
+                    <b-button size="sm" @click="row.toggleDetails();arraying(row.item);">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
                     <button
@@ -229,13 +229,36 @@
                             </b-col>
                             <b-col lg="12" class="my-1">
                               <b-form-textarea
-                                id="textareaa"
+                                
                                 v-model= row.item.body
                                 placeholder="Enter something..."
                                 rows="3"
                                 max-rows="6"
                                 disabled
                               ></b-form-textarea>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="12" class="my-1">
+                              <b-table
+                                :items="items3"
+                                :fields="fields3"
+                                :current-page="currentPage"
+                                :per-page="perPage"
+                                stacked="md"
+                                show-empty
+                                small
+                              >
+                              <template #cell(actions)="row">
+                                  <button
+                                    class="filter"
+                                    variant="primary"
+                                    @click="download(path,row.item.name);"
+                                  >
+                                     Dowload
+                                  </button>
+                                </template>
+                              </b-table>
                             </b-col>
                           </b-row>
                         </form>
@@ -255,7 +278,7 @@
                   small
                 >
                   <template #cell(actions)="row">
-                    <b-button size="sm" @click="row.toggleDetails">
+                    <b-button size="sm" @click="row.toggleDetails();arraying(row.item);">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
                     <button
@@ -313,13 +336,36 @@
                             </b-col>
                             <b-col lg="12" class="my-1">
                               <b-form-textarea
-                                id="textareaa"
+                                
                                 v-model= row.item.body
                                 placeholder="Enter something..."
                                 rows="3"
                                 max-rows="6"
                                 disabled
                               ></b-form-textarea>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="12" class="my-1">
+                              <b-table
+                                :items="items3"
+                                :fields="fields3"
+                                :current-page="currentPage"
+                                :per-page="perPage"
+                                stacked="md"
+                                show-empty
+                                small
+                              >
+                              <template #cell(actions)="row">
+                                  <button
+                                    class="filter"
+                                    variant="primary"
+                                    @click="download(path,row.item.name);"
+                                  >
+                                     Dowload
+                                  </button>
+                                </template>
+                              </b-table>
                             </b-col>
                           </b-row>
                         </form>
@@ -342,7 +388,7 @@
                     <button class="delete rewrite"  @click="rewiteMessage((currentPage - 1) * 10 + row.index)">
                       <i class="fa fa-edit"></i>
                     </button>
-                    <b-button size="sm" @click="row.toggleDetails">
+                    <b-button size="sm" @click="row.toggleDetails();arraying(row.item);">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
                     <button
@@ -400,13 +446,36 @@
                             </b-col>
                             <b-col lg="12" class="my-1">
                               <b-form-textarea
-                                id="textareaa"
+                                
                                 v-model= row.item.body
                                 placeholder="Enter something..."
                                 rows="3"
                                 max-rows="6"
                                 disabled
                               ></b-form-textarea>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="12" class="my-1">
+                              <b-table
+                                :items="items3"
+                                :fields="fields3"
+                                :current-page="currentPage"
+                                :per-page="perPage"
+                                stacked="md"
+                                show-empty
+                                small
+                              >
+                              <template #cell(actions)="row">
+                                  <button
+                                    class="filter"
+                                    variant="primary"
+                                    @click="download(path,row.item.name);"
+                                  >
+                                     Dowload
+                                  </button>
+                                </template>
+                              </b-table>
                             </b-col>
                           </b-row>
                         </form>
@@ -432,7 +501,7 @@
                     >
                       <i class="fa fa-undo"></i>
                     </button>
-                    <b-button size="sm" @click="row.toggleDetails">
+                    <b-button size="sm" @click="row.toggleDetails();arraying(row.item);">
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
                     <button
@@ -490,13 +559,36 @@
                             </b-col>
                             <b-col lg="12" class="my-1">
                               <b-form-textarea
-                                id="textareaa"
+                                
                                 v-model= row.item.body
                                 placeholder="Enter something..."
                                 rows="3"
                                 max-rows="6"
                                 disabled
                               ></b-form-textarea>
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="12" class="my-1">
+                              <b-table
+                                :items="items3"
+                                :fields="fields3"
+                                :current-page="currentPage"
+                                :per-page="perPage"
+                                stacked="md"
+                                show-empty
+                                small
+                              >
+                              <template #cell(actions)="row">
+                                  <button
+                                    class="filter"
+                                    variant="primary"
+                                    @click="download(path,row.item.name);"
+                                  >
+                                     Dowload
+                                  </button>
+                                </template>
+                              </b-table>
                             </b-col>
                           </b-row>
                         </form>
@@ -594,6 +686,10 @@ export default {
         { key: "email", label: "Email Address" },
         { key: "actions", label: "Actions" }
       ],
+      fields3: [
+        { key: "name", label: "Attachments name" },
+        { key: "actions", label: "Actions" }
+      ],
       on: false,
       totalRows: 1,
       currentPage: 1,
@@ -610,7 +706,10 @@ export default {
         content: ""
       },
       attachments: null,
-      attachments_number: 0
+      attachments_number: 0,
+      items3:[],
+      path:"",
+      email:""
     };
   },
   computed: {
@@ -641,6 +740,22 @@ export default {
       });
   },
   methods: {
+    arraying(v){
+      let a = [];
+      var i;
+      for (i = 1; i < v.attachments.length; i++) {
+         let b = {
+              name: v.attachments[i]
+            };
+            a.push(b);
+    }
+    this.items3=a;
+    if(v.attachments.length > 0){
+    this.path = v.attachments[0];}
+    console.log("ahmed");
+    console.log(this.items3);
+    }
+    ,
     open_settings() {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
@@ -690,6 +805,13 @@ export default {
       } else alert("Trying to delete nonexistent file");
     },
     download(Path, name){
+       const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const email = urlParams.get("email");
+      this.email = email;
+      console.log(this.email);
+      console.log(Path);
+      console.log(name);
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       let request = new Request("http://localhost:8085/download/"+name,{
@@ -697,15 +819,19 @@ export default {
           headers: myHeaders,
           body: JSON.stringify({path : Path})
       });
+     
       fetch(request).then(response => response.blob())
       .then(blob => {
           var url = window.URL.createObjectURL(blob);
           var a = document.createElement('a');
+          a.target='_blank';
           a.href = url;
           a.download = name;
           document.body.appendChild(a);
           a.click();    
-          a.remove();        
+          a.remove();   
+          console.log(this.email);
+          this.$router.push("/view?email=" + this.email);     
       });
     },
     toggle_on() {
@@ -839,6 +965,8 @@ export default {
         });
     },
     Filter() {
+      console.log(this.email);
+      /*
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
@@ -877,7 +1005,7 @@ export default {
           } else {
             alert(data);
           }*/
-        });
+       /* });*/
     },
     search() {
       const queryString = window.location.search;
