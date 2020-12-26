@@ -967,10 +967,10 @@ export default {
       console.log(v);
       this.targetFolder = v;
       if (v == "Inbox" || v == "Draft" || v == "Send" || v == "Trash") {
-        console.log(this.targetFolder);
+        //console.log(this.targetFolder);
         this.getEmails();
       } else {
-        console.log(v);
+        //console.log(v);
         //here we load contacts
       }
     },
@@ -978,7 +978,7 @@ export default {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
-      console.log("get Emails");
+      //console.log("get Emails");
       let a = {
         email: email + "@fray.com",
         targetFolder: this.targetFolder
@@ -992,7 +992,7 @@ export default {
       })
         .then(response => response.text())
         .then(data => {
-          console.log(data);
+          //console.log(data);
           this.handle(data);
         });
     },
@@ -1216,7 +1216,7 @@ export default {
       document.getElementById("priority").value = this.items[v].priority;
       document.getElementById("textarea").value = this.items[v].body;
       document.getElementById("Subject").value = this.items[v].subject;
-      this.removeFromTrash(v);
+      this.removeFromDraft(v);
     },
     deleteee(row) {
       const queryString = window.location.search;
@@ -1260,14 +1260,15 @@ export default {
           this.handle(data);
         });
     },
-    removeFromTrash(v) {
+    removeFromDraft(v) {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
       let a = [];
       a.push({ mail: this.items[v] });
       a.push({ email: email + "@fray.com" });
-      fetch("http://localhost:8085//RemoveTrash", {
+      //console.log("\n\n\n\n\n\n"+JSON.stringify(a));
+      fetch("http://localhost:8085//RemoveDraft", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
