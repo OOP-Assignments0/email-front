@@ -288,13 +288,13 @@
                                 small
                               >
                                 <template #cell(actions)="row">
-                                  <button
+                                  <b-button
                                     class="filter"
                                     variant="primary"
                                     @click="download(path, row.item.name)"
                                   >
                                     Dowload
-                                  </button>
+                                  </b-button>
                                 </template>
                               </b-table>
                             </b-col>
