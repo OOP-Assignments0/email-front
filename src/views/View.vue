@@ -1108,7 +1108,7 @@ export default {
       document.getElementById("priority").value = this.items[v].priority;
       document.getElementById("textarea").value = this.items[v].body;
       document.getElementById("Subject").value = this.items[v].subject;
-      this.removeFromTrash();
+      this.removeFromTrash(v);
     },
     deleteee(row) {
       const queryString = window.location.search;
@@ -1152,7 +1152,7 @@ export default {
           this.handle(data);
         });
     },
-    removeFromTrash(){
+    removeFromTrash(v){
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
