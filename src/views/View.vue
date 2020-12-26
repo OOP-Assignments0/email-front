@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="ahmed">
+  <b-container fluid class="ahmed" id = "cont">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -249,6 +249,19 @@
                               />
                             </b-col>
                           </b-row>
+                            <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Date:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.date"
+                                disabled
+                              />
+                            </b-col>
+                          </b-row>
                           <b-row>
                             <b-col lg="2" class="my-1">
                               <div>Body:</div>
@@ -312,12 +325,12 @@
                     >
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
-                    <button
+                    <b-button
                       class="delete"
                       @click="deletee((currentPage - 1) * 10 + row.index)"
                     >
                       <i class="fa fa-trash"></i>
-                    </button>
+                    </b-button>
                   </template>
 
                   <template #row-details="row">
@@ -383,6 +396,19 @@
                           </b-row>
                           <b-row>
                             <b-col lg="2" class="my-1">
+                              <div>Date:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.date"
+                                disabled
+                              />
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
                               <div>Body:</div>
                             </b-col>
                             <b-col lg="12" class="my-1">
@@ -407,13 +433,13 @@
                                 small
                               >
                                 <template #cell(actions)="row">
-                                  <button
+                                  <b-button
                                     class="filter"
                                     variant="primary"
                                     @click="download(path, row.item.name)"
                                   >
                                     Dowload
-                                  </button>
+                                  </b-button>
                                 </template>
                               </b-table>
                             </b-col>
@@ -521,6 +547,19 @@
                           </b-row>
                           <b-row>
                             <b-col lg="2" class="my-1">
+                              <div>Date:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.date"
+                                disabled
+                              />
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
                               <div>Body:</div>
                             </b-col>
                             <b-col lg="12" class="my-1">
@@ -545,13 +584,13 @@
                                 small
                               >
                                 <template #cell(actions)="row">
-                                  <button
+                                  <b-button
                                     class="filter"
                                     variant="primary"
                                     @click="download(path, row.item.name)"
                                   >
                                     Dowload
-                                  </button>
+                                  </b-button>
                                 </template>
                               </b-table>
                             </b-col>
@@ -627,7 +666,7 @@
                               <input
                                 type="text"
                                 class="filter"
-                                id="Too"
+                               
                                 :value="row.item.to"
                                 disabled
                               />
@@ -641,7 +680,7 @@
                               <input
                                 type="text"
                                 class="filter"
-                                id="Subjectt"
+                                
                                 :value="row.item.subject"
                                 disabled
                               />
@@ -655,8 +694,21 @@
                               <input
                                 type="text"
                                 class="filter"
-                                id="importacee"
+                               
                                 :value="row.item.priority"
+                                disabled
+                              />
+                            </b-col>
+                          </b-row>
+                          <b-row>
+                            <b-col lg="2" class="my-1">
+                              <div>Date:</div>
+                            </b-col>
+                            <b-col lg="10" class="my-1">
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.date"
                                 disabled
                               />
                             </b-col>
@@ -687,13 +739,13 @@
                                 small
                               >
                                 <template #cell(actions)="row">
-                                  <button
+                                  <b-button
                                     class="filter"
                                     variant="primary"
                                     @click="download(path, row.item.name)"
                                   >
                                     Dowload
-                                  </button>
+                                  </b-button>
                                 </template>
                               </b-table>
                             </b-col>
@@ -926,7 +978,6 @@ export default {
         headers: myHeaders,
         body: JSON.stringify({ path: Path })
       });
-
       fetch(request)
         .then(response => response.blob())
         .then(blob => {
@@ -939,7 +990,7 @@ export default {
           a.click();
           a.remove();
           console.log(this.email);
-          this.$router.push("/view?email=" + this.email);
+          //this.$router.push("/view?email=" + this.email);
         });
     },
     toggle_on() {

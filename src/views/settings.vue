@@ -1,5 +1,6 @@
 <template>
   <b-container fluid class="ahmed">
+    <form @submit.stop.prevent="modify">
     <b-row>
       <b-col lg="12" class="my-1">
         <div class="title">FRAY MAILS</div>
@@ -18,7 +19,7 @@
         <div style="text-align:center;">Username:</div>
       </b-col>
       <b-col lg="10" class="my-1">
-        <input type="text" id="name" class="filter" />
+        <input type="text" required id="name" class="filter" />
       </b-col>
     </b-row>
     <b-row>
@@ -26,7 +27,7 @@
         <div style="text-align:center;">Passward:</div>
       </b-col>
       <b-col lg="10" class="my-1">
-        <input type="text" id="password" class="filter" />
+        <input type="text" required  id="password" class="filter" />
       </b-col>
     </b-row>
     <b-row>
@@ -37,7 +38,7 @@
       </b-col>
       <b-col lg="8" class="my-1"> </b-col>
       <b-col lg="2" class="my-1">
-        <b-button variant="success" class="filter" @click="modify">OK</b-button>
+        <input type="submit" value="OK" class="filter">
       </b-col>
       <b-col lg="12" class="my-1">
         <b-container v-show="this.on" class="form">
@@ -73,6 +74,7 @@
         >
       </b-col>
     </b-row>
+    </form>
   </b-container>
 </template>
 
