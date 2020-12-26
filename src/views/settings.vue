@@ -1,79 +1,79 @@
 <template>
   <b-container fluid class="ahmed">
     <form @submit.stop.prevent="modify">
-    <b-row>
-      <b-col lg="12" class="my-1">
-        <div class="title">FRAY MAILS</div>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col lg="2" class="my-1">
-        <div style="text-align:center;">Useremail:</div>
-      </b-col>
-      <b-col lg="10" class="my-1">
-        <input type="text" id="email" class="filter" disabled />
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col lg="2" class="my-1">
-        <div style="text-align:center;">Username:</div>
-      </b-col>
-      <b-col lg="10" class="my-1">
-        <input type="text" required id="name" class="filter" />
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col lg="2" class="my-1">
-        <div style="text-align:center;">Passward:</div>
-      </b-col>
-      <b-col lg="10" class="my-1">
-        <input type="text" required  id="password" class="filter" />
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col lg="2" class="my-1">
-        <b-button variant="primary" class="filter" @click="toggle_on"
-          >Add Contact</b-button
-        >
-      </b-col>
-      <b-col lg="8" class="my-1"> </b-col>
-      <b-col lg="2" class="my-1">
-        <input type="submit" value="OK" class="filter">
-      </b-col>
-      <b-col lg="12" class="my-1">
-        <b-container v-show="this.on" class="form">
-          <b-row>
-            <b-col lg="12" class="my-1">
-              <input type="text" id="friend" class="filter" />
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col sm="10" md="10" class="my-1">
-              <div></div>
-            </b-col>
-            <b-col sm="2" md="2" class="my-1">
-              <b-button
-                size="lg"
-                variant="dark"
-                class="filter"
-                @click="addContact"
-              >
-                Add
-              </b-button>
-            </b-col>
-          </b-row>
-        </b-container>
-      </b-col>
-    </b-row>
-    <b-row> </b-row>
-    <b-row>
-      <b-col lg="10" class="my-1"> </b-col>
-      <b-col lg="2" class="my-1">
-        <b-button variant="danger" class="filter" @click="log_out"
-          >log out</b-button
-        >
-      </b-col>
-    </b-row>
+      <b-row>
+        <b-col lg="12" class="my-1">
+          <div class="title">FRAY MAILS</div>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col lg="2" class="my-1">
+          <div style="text-align:center;">Useremail:</div>
+        </b-col>
+        <b-col lg="10" class="my-1">
+          <input type="text" id="email" class="filter" disabled />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col lg="2" class="my-1">
+          <div style="text-align:center;">Username:</div>
+        </b-col>
+        <b-col lg="10" class="my-1">
+          <input type="text" required id="name" class="filter" />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col lg="2" class="my-1">
+          <div style="text-align:center;">Passward:</div>
+        </b-col>
+        <b-col lg="10" class="my-1">
+          <input type="text" required id="password" class="filter" />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col lg="2" class="my-1">
+          <b-button variant="primary" class="filter" @click="toggle_on"
+            >Add Contact</b-button
+          >
+        </b-col>
+        <b-col lg="8" class="my-1"> </b-col>
+        <b-col lg="2" class="my-1">
+          <input type="submit" value="OK" class="filter" />
+        </b-col>
+        <b-col lg="12" class="my-1">
+          <b-container v-show="this.on" class="form">
+            <b-row>
+              <b-col lg="12" class="my-1">
+                <input type="text" id="friend" class="filter" />
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col sm="10" md="10" class="my-1">
+                <div></div>
+              </b-col>
+              <b-col sm="2" md="2" class="my-1">
+                <b-button
+                  size="lg"
+                  variant="dark"
+                  class="filter"
+                  @click="addContact"
+                >
+                  Add
+                </b-button>
+              </b-col>
+            </b-row>
+          </b-container>
+        </b-col>
+      </b-row>
+      <b-row> </b-row>
+      <b-row>
+        <b-col lg="10" class="my-1"> </b-col>
+        <b-col lg="2" class="my-1">
+          <b-button variant="danger" class="filter" @click="log_out"
+            >log out</b-button
+          >
+        </b-col>
+      </b-row>
     </form>
   </b-container>
 </template>

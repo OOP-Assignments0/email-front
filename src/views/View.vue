@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="ahmed" id = "cont">
+  <b-container fluid class="ahmed" id="cont">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -69,7 +69,11 @@
         <input type="text" id="Search" class="filter" @keyup="search()" />
       </b-col>
       <b-col lg="3" class="my-1">
-        <b-form-select id="selectform" v-model="selected2" :options="options2"></b-form-select>
+        <b-form-select
+          id="selectform"
+          v-model="selected2"
+          :options="options2"
+        ></b-form-select>
       </b-col>
     </b-row>
     <b-row>
@@ -249,7 +253,7 @@
                               />
                             </b-col>
                           </b-row>
-                            <b-row>
+                          <b-row>
                             <b-col lg="2" class="my-1">
                               <div>Date:</div>
                             </b-col>
@@ -643,7 +647,6 @@
                               <input
                                 type="text"
                                 class="filter"
-                               
                                 :value="row.item.to"
                                 disabled
                               />
@@ -657,7 +660,6 @@
                               <input
                                 type="text"
                                 class="filter"
-                                
                                 :value="row.item.subject"
                                 disabled
                               />
@@ -671,7 +673,6 @@
                               <input
                                 type="text"
                                 class="filter"
-                               
                                 :value="row.item.priority"
                                 disabled
                               />
@@ -798,6 +799,7 @@ export default {
         { value: "receiver", text: "Receiver" },
         { value: "subject", text: "Subject" },
         { value: "body", text: "Body" },
+        { value: "attachments", text: "Attachments" },
         { value: "all", text: "all" }
       ],
       selected3: 1,
@@ -1100,7 +1102,7 @@ export default {
     },
     Filter() {
       console.log(this.email);
-      
+
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
@@ -1139,7 +1141,7 @@ export default {
           } else {
             alert(data);
           }*/
-      });
+        });
     },
     search() {
       const queryString = window.location.search;
