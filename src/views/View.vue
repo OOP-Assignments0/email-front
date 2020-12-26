@@ -171,7 +171,13 @@
                   small
                 >
                   <template #cell(actions)="row">
-                    <b-button size="sm" @click="row.toggleDetails();arraying(row.item);">
+                    <b-button
+                      size="sm"
+                      @click="
+                        row.toggleDetails();
+                        arraying(row.item);
+                      "
+                    >
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
                     <button
@@ -189,14 +195,19 @@
                           {{ key }}: {{ value }}
                         </li>
                       </ul>
-                      <b-container  class="form">
+                      <b-container class="form">
                         <form>
                           <b-row>
                             <b-col lg="2" class="my-1">
                               <div>From:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter"  :value= row.item.from   disabled />
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.from"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -204,7 +215,12 @@
                               <div>TO:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter"  :value= row.item.to  disabled/>
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.to"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -212,7 +228,12 @@
                               <div>Subject:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter"  :value= row.item.subject  disabled/>
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.subject"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -220,7 +241,12 @@
                               <div>Importance:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter"   :value= row.item.priority  disabled/>
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.priority"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -229,8 +255,7 @@
                             </b-col>
                             <b-col lg="12" class="my-1">
                               <b-form-textarea
-                                
-                                v-model= row.item.body
+                                v-model="row.item.body"
                                 placeholder="Enter something..."
                                 rows="3"
                                 max-rows="6"
@@ -249,13 +274,13 @@
                                 show-empty
                                 small
                               >
-                              <template #cell(actions)="row">
+                                <template #cell(actions)="row">
                                   <button
                                     class="filter"
                                     variant="primary"
-                                    @click="download(path,row.item.name);"
+                                    @click="download(path, row.item.name)"
                                   >
-                                     Dowload
+                                    Dowload
                                   </button>
                                 </template>
                               </b-table>
@@ -278,7 +303,13 @@
                   small
                 >
                   <template #cell(actions)="row">
-                    <b-button size="sm" @click="row.toggleDetails();arraying(row.item);">
+                    <b-button
+                      size="sm"
+                      @click="
+                        row.toggleDetails();
+                        arraying(row.item);
+                      "
+                    >
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
                     <button
@@ -296,14 +327,19 @@
                           {{ key }}: {{ value }}
                         </li>
                       </ul>
-                      <b-container  class="form">
+                      <b-container class="form">
                         <form>
                           <b-row>
                             <b-col lg="2" class="my-1">
                               <div>From:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter"  :value= row.item.from   disabled />
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.from"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -311,7 +347,12 @@
                               <div>TO:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter"  :value= row.item.to  disabled/>
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.to"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -319,7 +360,12 @@
                               <div>Subject:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter"   :value= row.item.subject  disabled/>
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.subject"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -327,7 +373,12 @@
                               <div>Importance:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter"   :value= row.item.priority  disabled/>
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.priority"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -336,8 +387,7 @@
                             </b-col>
                             <b-col lg="12" class="my-1">
                               <b-form-textarea
-                                
-                                v-model= row.item.body
+                                v-model="row.item.body"
                                 placeholder="Enter something..."
                                 rows="3"
                                 max-rows="6"
@@ -356,13 +406,13 @@
                                 show-empty
                                 small
                               >
-                              <template #cell(actions)="row">
+                                <template #cell(actions)="row">
                                   <button
                                     class="filter"
                                     variant="primary"
-                                    @click="download(path,row.item.name);"
+                                    @click="download(path, row.item.name)"
                                   >
-                                     Dowload
+                                    Dowload
                                   </button>
                                 </template>
                               </b-table>
@@ -385,10 +435,19 @@
                   small
                 >
                   <template #cell(actions)="row">
-                    <button class="delete rewrite"  @click="rewiteMessage((currentPage - 1) * 10 + row.index)">
+                    <button
+                      class="delete rewrite"
+                      @click="rewiteMessage((currentPage - 1) * 10 + row.index)"
+                    >
                       <i class="fa fa-edit"></i>
                     </button>
-                    <b-button size="sm" @click="row.toggleDetails();arraying(row.item);">
+                    <b-button
+                      size="sm"
+                      @click="
+                        row.toggleDetails();
+                        arraying(row.item);
+                      "
+                    >
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
                     <button
@@ -406,14 +465,19 @@
                           {{ key }}: {{ value }}
                         </li>
                       </ul>
-                      <b-container  class="form">
+                      <b-container class="form">
                         <form>
                           <b-row>
                             <b-col lg="2" class="my-1">
                               <div>From:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter"  :value= row.item.from   disabled />
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.from"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -421,7 +485,12 @@
                               <div>TO:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter"  :value= row.item.to  disabled/>
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.to"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -429,7 +498,12 @@
                               <div>Subject:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter"   :value= row.item.subject  disabled/>
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.subject"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -437,7 +511,12 @@
                               <div>Importance:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter"   :value= row.item.priority  disabled/>
+                              <input
+                                type="text"
+                                class="filter"
+                                :value="row.item.priority"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -446,8 +525,7 @@
                             </b-col>
                             <b-col lg="12" class="my-1">
                               <b-form-textarea
-                                
-                                v-model= row.item.body
+                                v-model="row.item.body"
                                 placeholder="Enter something..."
                                 rows="3"
                                 max-rows="6"
@@ -466,13 +544,13 @@
                                 show-empty
                                 small
                               >
-                              <template #cell(actions)="row">
+                                <template #cell(actions)="row">
                                   <button
                                     class="filter"
                                     variant="primary"
-                                    @click="download(path,row.item.name);"
+                                    @click="download(path, row.item.name)"
                                   >
-                                     Dowload
+                                    Dowload
                                   </button>
                                 </template>
                               </b-table>
@@ -501,7 +579,13 @@
                     >
                       <i class="fa fa-undo"></i>
                     </button>
-                    <b-button size="sm" @click="row.toggleDetails();arraying(row.item);">
+                    <b-button
+                      size="sm"
+                      @click="
+                        row.toggleDetails();
+                        arraying(row.item);
+                      "
+                    >
                       {{ row.detailsShowing ? "Hide" : "Show" }} Details
                     </b-button>
                     <button
@@ -519,14 +603,20 @@
                           {{ key }}: {{ value }}
                         </li>
                       </ul>
-                      <b-container  class="form">
+                      <b-container class="form">
                         <form>
                           <b-row>
                             <b-col lg="2" class="my-1">
                               <div>From:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter" id="from" :value= row.item.from   disabled />
+                              <input
+                                type="text"
+                                class="filter"
+                                id="from"
+                                :value="row.item.from"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -534,7 +624,13 @@
                               <div>TO:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter" id="Too" :value= row.item.to  disabled/>
+                              <input
+                                type="text"
+                                class="filter"
+                                id="Too"
+                                :value="row.item.to"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -542,7 +638,13 @@
                               <div>Subject:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter" id="Subjectt"  :value= row.item.subject  disabled/>
+                              <input
+                                type="text"
+                                class="filter"
+                                id="Subjectt"
+                                :value="row.item.subject"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -550,7 +652,13 @@
                               <div>Importance:</div>
                             </b-col>
                             <b-col lg="10" class="my-1">
-                              <input type="text" class="filter" id="importacee"  :value= row.item.priority  disabled/>
+                              <input
+                                type="text"
+                                class="filter"
+                                id="importacee"
+                                :value="row.item.priority"
+                                disabled
+                              />
                             </b-col>
                           </b-row>
                           <b-row>
@@ -559,8 +667,7 @@
                             </b-col>
                             <b-col lg="12" class="my-1">
                               <b-form-textarea
-                                
-                                v-model= row.item.body
+                                v-model="row.item.body"
                                 placeholder="Enter something..."
                                 rows="3"
                                 max-rows="6"
@@ -579,13 +686,13 @@
                                 show-empty
                                 small
                               >
-                              <template #cell(actions)="row">
+                                <template #cell(actions)="row">
                                   <button
                                     class="filter"
                                     variant="primary"
-                                    @click="download(path,row.item.name);"
+                                    @click="download(path, row.item.name)"
                                   >
-                                     Dowload
+                                    Dowload
                                   </button>
                                 </template>
                               </b-table>
@@ -707,9 +814,9 @@ export default {
       },
       attachments: null,
       attachments_number: 0,
-      items3:[],
-      path:"",
-      email:""
+      items3: [],
+      path: "",
+      email: ""
     };
   },
   computed: {
@@ -740,22 +847,22 @@ export default {
       });
   },
   methods: {
-    arraying(v){
+    arraying(v) {
       let a = [];
       var i;
       for (i = 1; i < v.attachments.length; i++) {
-         let b = {
-              name: v.attachments[i]
-            };
-            a.push(b);
-    }
-    this.items3=a;
-    if(v.attachments.length > 0){
-    this.path = v.attachments[0];}
-    console.log("ahmed");
-    console.log(this.items3);
-    }
-    ,
+        let b = {
+          name: v.attachments[i]
+        };
+        a.push(b);
+      }
+      this.items3 = a;
+      if (v.attachments.length > 0) {
+        this.path = v.attachments[0];
+      }
+      console.log("ahmed");
+      console.log(this.items3);
+    },
     open_settings() {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
@@ -804,8 +911,8 @@ export default {
         item.parentNode.removeChild(item);
       } else alert("Trying to delete nonexistent file");
     },
-    download(Path, name){
-       const queryString = window.location.search;
+    download(Path, name) {
+      const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
       this.email = email;
@@ -814,25 +921,26 @@ export default {
       console.log(name);
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
-      let request = new Request("http://localhost:8085/download/"+name,{
-          method: 'POST',
-          headers: myHeaders,
-          body: JSON.stringify({path : Path})
+      let request = new Request("http://localhost:8085/download/" + name, {
+        method: "POST",
+        headers: myHeaders,
+        body: JSON.stringify({ path: Path })
       });
-     
-      fetch(request).then(response => response.blob())
-      .then(blob => {
+
+      fetch(request)
+        .then(response => response.blob())
+        .then(blob => {
           var url = window.URL.createObjectURL(blob);
-          var a = document.createElement('a');
-          a.target='_blank';
+          var a = document.createElement("a");
+          a.target = "_blank";
           a.href = url;
           a.download = name;
           document.body.appendChild(a);
-          a.click();    
-          a.remove();   
+          a.click();
+          a.remove();
           console.log(this.email);
-          this.$router.push("/view?email=" + this.email);     
-      });
+          this.$router.push("/view?email=" + this.email);
+        });
     },
     toggle_on() {
       this.on = !this.on;
@@ -909,11 +1017,11 @@ export default {
       document.getElementById("priority").value = 1;
       document.getElementById("textarea").value = "";
       document.getElementById("Subject").value = "";
-      var e = document.getElementById("attachments");  
-      var child = e.lastElementChild;  
-      while (child) { 
-        e.removeChild(child); 
-        child = e.lastElementChild; 
+      var e = document.getElementById("attachments");
+      var child = e.lastElementChild;
+      while (child) {
+        e.removeChild(child);
+        child = e.lastElementChild;
       }
       this.attachments = new FormData();
       this.attachments_number = 0;
@@ -1005,7 +1113,7 @@ export default {
           } else {
             alert(data);
           }*/
-       /* });*/
+      /* });*/
     },
     search() {
       const queryString = window.location.search;
@@ -1102,7 +1210,7 @@ export default {
       this.on = true;
       document.getElementById("To").value = this.items[row].email;
     },
-    rewiteMessage(v){
+    rewiteMessage(v) {
       this.on = true;
       document.getElementById("To").value = this.items[v].to;
       document.getElementById("priority").value = this.items[v].priority;
@@ -1152,7 +1260,7 @@ export default {
           this.handle(data);
         });
     },
-    removeFromTrash(v){
+    removeFromTrash(v) {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const email = urlParams.get("email");
